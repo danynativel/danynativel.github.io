@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>ArchLinux Installation Guide on Encrypted SSD [2017] &middot; Dany Nativel</title>
+    <meta name="generator" content="Hugo 0.40.3" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Dany Nativel">
+    
+      <meta name="description" content="">
+    
+    
+    <link rel="canonical" href="https://danynativel.net/2017/01/29/archlinux-installation-guide-on-encrypted-ssd-2017/"/>
+    <link rel="icon" href="https://danynativel.net/favicon.ico">
+    <link rel="apple-touch-icon" href="https://danynativel.net/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://danynativel.net/css/style.css">
+    <link rel="stylesheet" href="https://danynativel.net/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://danynativel.net/css/monokai.css">
+    <link rel="stylesheet" href="https://danynativel.net/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="ArchLinux Installation Guide on Encrypted SSD [2017]" />
+<meta property="og:description" content="This tutorial will guide you for installing ArchLinux on a GPT partition while using GRUB2 on a BIOS enabled PC (see Wiki for EFI) and thus on a SSD media based upon LUKS (encryption) over LVM. It is not aimed to replace the official ArchLinux installation guide or Wiki. It is just a collection of notes gathered from the official sources. As a reminder the Installation Guide can now also be found on the USB flash drive under /root/install.txt.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://danynativel.net/2017/01/29/archlinux-installation-guide-on-encrypted-ssd-2017/" />
+
+
+
+<meta property="article:published_time" content="2017-01-29T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-01-29T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="ArchLinux Installation Guide on Encrypted SSD [2017]">
+<meta itemprop="description" content="This tutorial will guide you for installing ArchLinux on a GPT partition while using GRUB2 on a BIOS enabled PC (see Wiki for EFI) and thus on a SSD media based upon LUKS (encryption) over LVM. It is not aimed to replace the official ArchLinux installation guide or Wiki. It is just a collection of notes gathered from the official sources. As a reminder the Installation Guide can now also be found on the USB flash drive under /root/install.txt.
+
+">
+
+
+<meta itemprop="datePublished" content="2017-01-29T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-01-29T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="5225">
+
+
+
+<meta itemprop="keywords" content="Linux,How-To,ArchLinux," />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ArchLinux Installation Guide on Encrypted SSD [2017]"/>
+<meta name="twitter:description" content="This tutorial will guide you for installing ArchLinux on a GPT partition while using GRUB2 on a BIOS enabled PC (see Wiki for EFI) and thus on a SSD media based upon LUKS (encryption) over LVM. It is not aimed to replace the official ArchLinux installation guide or Wiki. It is just a collection of notes gathered from the official sources. As a reminder the Installation Guide can now also be found on the USB flash drive under /root/install.txt.
+
+"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://danynativel.net/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://danynativel.net/img/facevase.png')"></i>
+          
+          <span class="site-title">Dany Nativel</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/">Home</a>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/categories/">Categories</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://www.danynativel.com">Street Photography</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://danynativel.net/img/dnativel.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://danynativel.net/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/">Home</a></td>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/categories/">Categories</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://www.danynativel.com">Street Photography</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://danynativel.net/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://danynativel.net/img/dnativel.png">
+      
+      <h2 id="name">Dany Nativel</h2>
+      <h3 id="title">Freediver - Photographer - Privacy &amp; FOSS advocate</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>France</span>
+      
+          <a id="follow" href="https://www.instagram.com/dany.nativel">
+              Follow
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        11
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          8
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//instagram.com/dany.nativel" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//linkedin.com/in/danynativel" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//keybase.io/danynativel" target="_blank" title="Keybase"><i class="fa fa-key"></i></a></td>
+
+
+
+<td><a href="http://www.danynativel.com/" target="_blank" title="Street Photography Official Website"><i class="fa fa-camera-retro"></i></a></td>
+
+
+
+
+
+<td><a href="mailto:dany@nativel.net" target="_blank" title="Email"><i class="fa fa-envelope"></i></a></td>
+
+
+
+
+
+
+          <td><a href="https://danynativel.net/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://danynativel.net/top/archlinux.png" class="article-banner">
+        
+
+        <header class="article-header">
+    <a href="https://danynativel.net/2017/01/29/archlinux-installation-guide-on-encrypted-ssd-2017/">
+    <h1 class="article-title" itemprop="name">
+        ArchLinux Installation Guide on Encrypted SSD [2017]
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2017-01-29 00:00:00 &#43;0000 UTC" itemprop="datePublished">2017-01-29</time>
+	    
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/categories/computer">Computer</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/linux">Linux</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/how-to">How-To</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/archlinux">ArchLinux</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>This tutorial will guide you for installing ArchLinux on a GPT partition while using GRUB2 on a BIOS enabled PC (see Wiki for EFI) and thus on a SSD media based upon LUKS (encryption) over LVM. It is not aimed to replace the official ArchLinux installation guide or Wiki. It is just a collection of notes gathered from the official sources. As a reminder the Installation Guide can now also be found on the USB flash drive under /root/install.txt.</p>
+
+<p></p>
+
+<p>Once you have installed your system please make sure to consult my <a href='/2013/06/10/emergency-commands-for-encrypted-archlinux-installations/'>emergency instructions</a> for accessing your encrypted data with a LiveCD USB Flash drive and also perform seamless upgrades using LVM snapshots.</p>
+
+<h2 id="pre-installation-steps">Pre-Installation Steps</h2>
+
+<h3 id="securely-wipe-ssd">Securely wipe SSD</h3>
+
+<p>Fill the new drive with random data using a working Linux system:</p>
+
+<pre><code>    # dd if=/dev/urandom of=/dev/sda iflag=nocache oflag=direct bs=4096
+</code></pre>
+
+<p>This operation takes a long time (eg. 8 hours for a 500GB SSD).</p>
+
+<h3 id="prepare-usb-flash-drive">Prepare USB Flash drive</h3>
+
+<p>Based upon  2017.01.01 ISO image or later from <a href="http://www.archlinux.org/download">http://www.archlinux.org/download</a>.</p>
+
+<pre><code>    # dd if=/dev/zero of=/dev/sdx  bs=1k count=1
+    # dd if=archlinux-xxxxx.iso of=/dev/sdx
+</code></pre>
+
+<p>Replace sdx by your thumbdrive reference.</p>
+
+<h2 id="boot-from-usb-flash-drive">Boot from USB Flash drive</h2>
+
+<p>Go into BIOS menu and make sure to disable UEFI or enable legacy BIOS as default then boot &amp; select x86_64 (or i686 if you want to stay with i686 architecture, max. 3GB SRAM). If you see UEFI in the boot menu, it is likely that your system is setup for UEFI boot only.</p>
+
+<h3 id="change-keyboard-layout">Change keyboard layout</h3>
+
+<pre><code>    # loadkeys fr
+</code></pre>
+
+<h3 id="get-ip-address">Get IP address</h3>
+
+<p>Archlinux boot CD starts the network and get an IP address via DHCP.
+You can check that you have  obtained an IP address with:</p>
+
+<pre><code>    # ip addr
+</code></pre>
+
+<p>In case you IP address was not automaticaly setup, you can use:</p>
+
+<pre><code>    # dhcpcd
+</code></pre>
+
+<p>It is also possible to use manual IP or wifi. Please refer to the official wiki for proper instructions.</p>
+
+<h3 id="configure-drive-block-devices-and-encrypted-filesystems">Configure drive, block devices and encrypted filesystems</h3>
+
+<h4 id="identify-the-devices">Identify the devices</h4>
+
+<p>The first step is to identify the devices where the new system will be installed. The following command will show all the available devices:</p>
+
+<pre><code>    # lsblk
+</code></pre>
+
+<h4 id="manually-partition-the-ssd">Manually partition the SSD</h4>
+
+<pre><code>    # gdisk /dev/sda
+</code></pre>
+
+<p>Remove old partitions then create the following partitions:</p>
+
+<ul>
+<li>Enter n,1,[Enter],2M, EF02. This is the first partition (2MB) with type EF02 (BIOS partition) and used by GRUB2/BIOS-GPT. (/dev/sda1).</li>
+<li>Enter n,2,[Enter],256M,8300. Second partition (256MB) with type 8300 (Linux) holds unencrypted /boot as well as backup copies of /boot between system upgrades. (/dev/sda2)</li>
+<li>Enter n,3,[Enter],3G,8200. Third partition (3GB) with type 8200 (swap) is our optional swap partition that will be encrypted with random key but not part of lvm. (/dev/sda3)</li>
+<li>Enter n,4,[Enter],[Enter]. Fourth partition occupies the remaining space with a type 8E00 (LVM). It will store the encrypted LVM for /, /home and snapshots (/dev/sda4)</li>
+<li>Enter p to verify the above configuration</li>
+<li>Enter w,Y</li>
+</ul>
+
+<p>If you don&rsquo;t want to go the hassle of a separate, self-encrypted, SWAP, you can alway setup a LVM partition for it.</p>
+
+<h4 id="prepare-encrypted-luks-space">Prepare encrypted LUKS space</h4>
+
+<p>We need to align, enable TRIM and use the right payload for SSD.</p>
+
+<pre><code>    # cryptsetup -v --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-random --align-payload=8192 luksFormat /dev/sda4
+    # cryptsetup luksOpen --allow-discards /dev/sda4 enc-lvm
+</code></pre>
+
+<p>While we will be enabling TRIM at different stages we won&rsquo;t activate the discard option for mounting the different partitions but rather use weekly fstrim checks.
+The iter-time at 5000 means it will take up to 5s to check the password hash.</p>
+
+<h4 id="setup-lvm-space">Setup LVM space</h4>
+
+<p>20GB for root is usually enough but if you start installing large packages such as TeX or others it can become too small over time. Therefore 40GB gives some room. We don&rsquo;t setup swap inside LVM but keep it outside with its own random key per reboot. For the home directory we don&rsquo;t use all remaining space but save some spare space for snapshots.</p>
+
+<pre><code>    # lvm pvcreate --dataalignment 4M /dev/mapper/enc-lvm
+    # lvm vgcreate vgroup /dev/mapper/enc-lvm
+    # lvm lvcreate -L 40GB -n root vgroup
+    # lvm lvcreate -l 95%free -n home vgroup
+</code></pre>
+
+<p>vgdisplay to see the remaining space for snapshot. If not ok,</p>
+
+<pre><code># lvremove /dev/mapper/vgroup-home
+# lvm lvcreate -l 97%free -n home vgroup
+</code></pre>
+
+<h4 id="format-boot-root-and-home">Format /boot, /root and /home</h4>
+
+<pre><code># mkfs.ext2 /dev/sda2
+ # mkfs.xfs /dev/mapper/vgroup-root
+ # mkfs.xfs /dev/mapper/vgroup-home
+</code></pre>
+
+<p>ext4 was the filesystem of choice in the previous installation guide. Since I&rsquo;m using XFS now on my NAS I thought it would make sense to use XFS here too especially with the latest developments including metadata checksums that are enabled by default.</p>
+
+<h4 id="get-5-space-back-from-home-partition-if-using-ext4">Get 5% space back from /home partition (if using EXT4)</h4>
+
+<p>If you selected ext4 instead of XFS for /home you can gain 5% of space back since this is typically used on root partition as a safeguard when the disk gets full.</p>
+
+<p>On non-root partition this hidden space can be easily and safely reclaimed back by using the following command.</p>
+
+<pre><code> # tune2fs -m 0 /dev/mapper/vgroup-home
+</code></pre>
+
+<h3 id="mount-the-partitions">Mount the partitions</h3>
+
+<pre><code># mount /dev/mapper/vgroup-root /mnt
+# mkdir /mnt/boot
+# mount /dev/sda2 /mnt/boot
+# mkdir /mnt/home
+# mount /dev/mapper/vgroup-home /mnt/home
+</code></pre>
+
+<h3 id="install-the-base-system">Install the base system</h3>
+
+<h4 id="select-installation-mirror">Select installation mirror</h4>
+
+<p>ftp.archlinux.org is throttled to 50KB/s.</p>
+
+<p>Before installing, you may want to edit /etc/pacman.d/mirrorlist such that your preferred mirror is first. This copy of the mirrorlist will be installed on your new system by pacstrap as well, so it&rsquo;s worth getting it right.</p>
+
+<h4 id="perform-system-installation">Perform system installation</h4>
+
+<pre><code> # pacstrap /mnt base base-devel
+</code></pre>
+
+<h4 id="install-a-bootloader">Install a bootloader</h4>
+
+<p>The folllowing will install GRUB2. If you want EFI please refer to the official Wiki.</p>
+
+<pre><code> # pacstrap /mnt grub-bios
+</code></pre>
+
+<h4 id="generate-fstab-for-the-new-disk-scheme">Generate fstab for the new disk scheme</h4>
+
+<p>Generate a fstab file with the following command. UUIDs will be used because they have certain advantages (see official wiki). If you would prefer to use labels instead, replace the -U option with -L.
+Note: If you encounter errors running genfstab or later in the install process, do not run genfstab again; just edit the fstab file.</p>
+
+<pre><code> # genfstab -U -p /mnt &gt;&gt; /mnt/etc/fstab
+</code></pre>
+
+<h4 id="setup-mount-flags">Setup mount Flags</h4>
+
+<p>When using SSD it&rsquo;s important to disable some of the timestampgins that can impact the SSD lifetime. Edit the /mnt/etc/fstab generate above to reflect the following changes:</p>
+
+<pre><code> UUID=XXX-YYY-ZZZ   /       xfs  rw,noatime,attr2,inode64,noquota 0 1
+ UUID=TTT-UUU-VVV   /boot   ext2 rw,noatime 0 2
+ UUID=PPP-QQQ-RRR   /home   xfs  rw,noatime,attr2,inode64,noquota 0 2
+</code></pre>
+
+<h4 id="enable-trim-support-on-lvm">Enable TRIM support on LVM</h4>
+
+<p>We have to enable the option issue_discards in the LVM configuration. Edit /mnt/etc/lvm/lvm.conf</p>
+
+<pre><code>  # [...]
+  devices {
+  # [...]
+  issue_discards = 1
+  # [...]
+  }
+  # [...]
+</code></pre>
+
+<p><a href="http://blog.neutrino.es/2013/howto-properly-activate-trim-for-your-ssd-on-linux-fstrim-lvm-and-dmcrypt/">http://blog.neutrino.es/2013/howto-properly-activate-trim-for-your-ssd-on-linux-fstrim-lvm-and-dmcrypt/</a></p>
+
+<h3 id="configure-the-newly-installed-system">Configure the newly installed system</h3>
+
+<h4 id="chroot-into-the-installed-system">Chroot into the installed system</h4>
+
+<pre><code> # arch-chroot /mnt /bin/bash
+</code></pre>
+
+<h4 id="set-root-password">Set root password</h4>
+
+<p>Set a root password with:</p>
+
+<pre><code> # passwd
+</code></pre>
+
+<h4 id="set-hostname">Set hostname</h4>
+
+<p>Add your hostname in /etc/hostname.</p>
+
+<pre><code> myhostname
+</code></pre>
+
+<p>Set it to your liking. This is the name of your computer.</p>
+
+<p>Add also your hostname in /etc/hosts, coinciding with the one specified in /etc/hostname as an alias, so that it looks like this:</p>
+
+<pre><code> 127.0.0.1   localhost.localdomain   localhost myhostname
+ ::1         localhost.localdomain   localhost myhostname
+</code></pre>
+
+<p>Note: ::1 is the IPv6 equivalent of 127.0.0.1</p>
+
+<h4 id="configure-console-fonts-and-keymap">Configure console fonts and keymap</h4>
+
+<p>Set keymap and font name in /etc/vconsole.conf.</p>
+
+<pre><code> KEYMAP=fr
+ FONT=
+ FONT_MAP=
+</code></pre>
+
+<p>KEYMAP
+        The available keymaps are in /usr/share/kbd/keymaps. Please note that this setting is only valid for your TTYs, not any graphical window managers or X.
+FONT
+        Available alternate console fonts reside in /usr/share/kbd/consolefonts/. The default (blank) is safe.
+FONT_MAP
+        Defines the console map to load with the setfont program at boot. Possible maps are found in /usr/share/kbd/consoletrans, if needed. The default (blank) is safe.</p>
+
+<h4 id="setup-time">Setup time</h4>
+
+<h5 id="select-a-time-zone">Select a time zone:</h5>
+
+<pre><code> # tzselect
+</code></pre>
+
+<p>Available time zones and subzones can also be found in the /usr/share/zoneinfo/<Zone>/<SubZone> directories.</p>
+
+<h5 id="setup-a-timezone">Setup a timezone</h5>
+
+<p>Edit the file /etc/timezone and write your Zone/Subzone.  Example:</p>
+
+<pre><code> Europe/Paris
+</code></pre>
+
+<p>Additionaly, create a symbolic link /etc/localtime to the same /usr/share/zoneinfo/<Zone>/<SubZone> using this command:</p>
+
+<pre><code> # ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+</code></pre>
+
+<h5 id="adjust-time-skew">Adjust time skew</h5>
+
+<p>It is recommended to adjust the time skew, and set the time standard to UTC:</p>
+
+<pre><code> # hwclock --systohc --utc
+</code></pre>
+
+<h4 id="locale">Locale</h4>
+
+<h5 id="enable-locales">Enable locales</h5>
+
+<p>Edit /etc/locale.gen and uncomment:</p>
+
+<pre><code> en_US.UTF-8 UTF-8
+ fr_FR.UTF-8 UTF-8
+ fr_FR ISO-8859-15
+ fr_FR@euro ISO-8859-15
+</code></pre>
+
+<h5 id="generate-locales">Generate locales</h5>
+
+<pre><code> # locale-gen
+</code></pre>
+
+<h5 id="setting-up-system-wide-locale">Setting up system-wide locale</h5>
+
+<p>Add your language to /etc/locale.conf.</p>
+
+<pre><code>LANG=fr_FR.UTF-8
+LC_COLLATE=&quot;fr_FR.UTF-8&quot;
+</code></pre>
+
+<h5 id="export-current-language-for-initramfs-creation">Export current language for initramfs creation</h5>
+
+<p>We will be adding keymap to mkinicpio.conf therefore we need to environment variable LANG.</p>
+
+<pre><code># export LANG=fr_FR.UTF-8
+</code></pre>
+
+<h3 id="configure-the-network">Configure the network</h3>
+
+<p>If not using DHCP or network manager, please see wiki for rc.conf configuration.</p>
+
+<h3 id="prepare-initramfs-and-bootloard">Prepare initramfs and bootloard</h3>
+
+<h4 id="prepare-the-initramfs-build">Prepare the initramfs build</h4>
+
+<p>Add keymap to kernel for non-US keyboard on boot as well as keyboard for usb support on boot, encrypt and lvm2 for accessing our encrypted space.</p>
+
+<p>Edit /etc/mkinitcpio.conf to add required hooks for encryption, keyboard and LVM.</p>
+
+<pre><code>    HOOKS=&quot;base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck&quot;
+</code></pre>
+
+<p>Also add the required video driver for early display setup. For example for integrated Intel graphic card:</p>
+
+<pre><code>    MODULES=&quot;i915&quot;
+</code></pre>
+
+<h4 id="create-an-initial-ramdisk-environment">Create an initial ramdisk environment</h4>
+
+<pre><code>    # mkinitcpio -p linux
+</code></pre>
+
+<h4 id="configure-the-bootloader">Configure the bootloader</h4>
+
+<h5 id="install-grub2-to-the-ssd">Install GRUB2 to the SSD</h5>
+
+<pre><code>    # grub-install --recheck /dev/sda
+</code></pre>
+
+<h5 id="add-ssd-trim-and-encryption-support">Add SSD TRIM and encryption support</h5>
+
+<p>We need to allow discards in grub even if we only use the fstrim utility instead of the discard mount option. Edit /etc/default/grub and change with:</p>
+
+<pre><code>    GRUB_CMDLINE_LINUX=&quot;cryptdevice=/dev/sda4:vgroup:allow-discards&quot;
+</code></pre>
+
+<p>If you happen to have multiple SATA drives in your system, you might need to use UUID instead of labels. Get the UUID of /dev/sda4 by using</p>
+
+<pre><code>    # blkid /dev/sda4
+</code></pre>
+
+<p>And then replace cryptdevice=/dev/sda4 by cryptdevice=/dev/disk/by-uuid/wwww-xxxx-yyyy-zzzz</p>
+
+<h5 id="generate-grub2-configuration">Generate GRUB2 configuration</h5>
+
+<pre><code>    # grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre>
+
+<p>Some warning will popup but it&rsquo;s ok. Next time you regenerate the grub configuration, warnings should be gone.</p>
+
+<h3 id="time-to-reboot-into-your-freshly-installed-system">Time to reboot into your freshly installed system</h3>
+
+<h4 id="unmount-the-partitions">Unmount the partitions</h4>
+
+<p>If you are still in the chroot environment then type exit or Ctrl+D in order to exit chroot. Since the partitions are mounted under /mnt, we use the following command to unmount them.</p>
+
+<pre><code>    # exit
+    # umount /mnt/boot
+    # umount /mnt/home
+    # umount /mnt
+</code></pre>
+
+<h4 id="reboot">Reboot</h4>
+
+<p>Execute the following command and remove the installation media.</p>
+
+<pre><code>    # reboot
+</code></pre>
+
+<h2 id="post-installation-steps">Post Installation Steps</h2>
+
+<h3 id="start-network">Start network</h3>
+
+<pre><code>  # dhcpd eth0
+</code></pre>
+
+<h3 id="setup-swap-space">Setup swap space</h3>
+
+<p>One can place a swap partition on an SSD. Note that most modern desktops with an excess of 2 Gigs of memory rarely use swap at all. The notable exception is systems which make use of the hibernate feature.</p>
+
+<h4 id="enable-encrypted-swap-with-random-key-but-without-suspend-to-disk-support">Enable encrypted swap with random key but without suspend-to-disk support</h4>
+
+<p>It is very dangerous to use crypttab swap with /dev/sdx3 or even /dev/disk/by-id/ata-SERIAL-partX. A small change in your device names or partitioning layout and /etc/crypttab will see your valuable data formatted on the next boot. It is more reliable to identify the correct partition by giving it a UUID or LABEL. By default that does not work because dm-crypt and mkswap would simply overwrite any content on that partition; however, it is possible to specify an offset. This allows you to create a very small, empty, bogus filesystem (with no other purpose than providing a UUID or LABEL), which survives the swap encryptions.</p>
+
+<p>Create a filesystem with label of your choice:</p>
+
+<pre><code>    # mkfs.ext2 -L cryptswap /dev/sda3 1M
+</code></pre>
+
+<p>The unusual parameter after the device name limits the filesystem size to 1 MiB.</p>
+
+<pre><code>    # blkid /dev/sda3
+
+    /dev/sda3: LABEL=&quot;cryptswap&quot; UUID=&quot;b72c384e-bd3c-49aa-b7a7-a28ea81a2605&quot; TYPE=&quot;ext2&quot;
+</code></pre>
+
+<p>With this, /dev/sda3 now can easily be identified either by UUID or LABEL, regardless of how its device name or even partition number might change in the future. All that&rsquo;s left is the /etc/crypttab and /etc/fstab entries:</p>
+
+<p>/etc/crypttab</p>
+
+<pre><code>    # &lt;name&gt;       &lt;device&gt;         &lt;password&gt;              &lt;options&gt;
+    cryptswap      LABEL=cryptswap  /dev/urandom            swap,offset=2048,cipher=aes-xts-plain64,size=512,hash=sha512
+</code></pre>
+
+<p>Note the offset: it&rsquo;s 2048 sectors of 512 bytes, thus 1 MiB. This way the filesystem LABEL/UUID remains intact, and data alignment works out as well.</p>
+
+<p>Why /dev/urandom and not /dev/random? The latter blocks until it got enough entropy to continue, urandom don&rsquo;t. So if you use random instead urandom you might have to wait during boot until enough entropy is collected. (It does help to type your keyboard and move the mouse.) Use /dev/random if you&rsquo;re really paranoid.</p>
+
+<p>/etc/fstab</p>
+
+<pre><code>    # &lt;filesystem&gt;         &lt;dir&gt;  &lt;type&gt;  &lt;options&gt;  &lt;dump&gt;  &lt;pass&gt;
+    /dev/mapper/cryptswap  none   swap    defaults   0       0
+</code></pre>
+
+<h4 id="change-swap-space-behavior">Change swap space behavior</h4>
+
+<p>The following is recommended tweak for SSDs using a swap partition that will reduce the &ldquo;swappiness&rdquo; of the system thus avoiding writes to swap.</p>
+
+<p>/etc/sysctl.d/99-sysctl.conf</p>
+
+<pre><code>    vm.swappiness=1
+    vm.vfs_cache_pressure=50
+</code></pre>
+
+<p>Reboot</p>
+
+<p>Check</p>
+
+<pre><code>    # cat /proc/sys/vm/swappiness
+</code></pre>
+
+<h3 id="enable-periodic-trim-operation">Enable periodic TRIM operation</h3>
+
+<p>Since we haven&rsquo;t enabled discards on mountpoints we need to perform trim operations on a regular basis.</p>
+
+<p>The util-linux package (part of base and base-devel) provides fstrim.service and fstrim.timer systemd unit files. Enabling the timer will activate the service weekly, which will then trim all mounted filesystems on devices that support the discard operation. The timer relies on the timestamp of /var/lib/systemd/timers/stamp-fstrim.timer (which it will create upon first invocation) to know whether a week has elapsed since it last ran.</p>
+
+<pre><code>    # journalctl enable fstrim.timer
+</code></pre>
+
+<p>Therefore there is no need to worry about too frequent invocations, in an anacron-like fashion.
+It is also possible to query the units activity and status using standard journalctl and systemctl status commands:</p>
+
+<pre><code>    # journalctl -u fstrim
+    # systemctl status fstrim
+</code></pre>
+
+<h3 id="change-i-o-scheduler-for-ssd">Change I/O scheduler for SSD</h3>
+
+<p>Both noop and deadline are recommanded for SSD operation. We will stick to deadline for SSD and CFQ for hard drives.</p>
+
+<p>To do this, create and edit a file in /etc/udev/rules.d named something like &lsquo;60-schedulers.rules&rsquo;. In the file include the following:</p>
+
+<pre><code>    # set deadline scheduler for non-rotating disks
+    ACTION==&quot;add|change&quot;, KERNEL==&quot;sd[a-z]&quot;, TEST!=&quot;queue/rotational&quot;, ATTR{queue/scheduler}=&quot;deadline&quot;
+    ACTION==&quot;add|change&quot;, KERNEL==&quot;sd[a-z]&quot;, ATTR{queue/rotational}==&quot;0&quot;, ATTR{queue/scheduler}=&quot;deadline&quot;
+
+    # set cfq scheduler for rotating disks
+    ACTION==&quot;add|change&quot;, KERNEL==&quot;sd[a-z]&quot;, ATTR{queue/rotational}==&quot;1&quot;, ATTR{queue/scheduler}=&quot;cfq&quot;
+</code></pre>
+
+<p>Of course, set deadline/cfq to the desired schedulers. Changes should occur upon next boot. To check success of the new rule:</p>
+
+<pre><code>    # cat /sys/block/sdX/queue/scheduler   #where X is the device in question
+</code></pre>
+
+<p>Note: Keep in mind cfq is the default scheduler, so the second rule with the standard kernel is not actually necessary. Also, in the example sixty is chosen because that is the number udev uses for its own persistent naming rules. Thus, it would seem that block devices are at this point able to be modified and this is a safe position for this particular rule. But the rule can be named anything so long as it ends in &lsquo;.rules&rsquo;. (Credit: falconindy and w0ng for posting on his blog)</p>
+
+<h3 id="resolving-ncq-errors">Resolving NCQ errors</h3>
+
+<p>Some SSDs and SATA chipsets do not work properly with Linux Native Command Queueing (NCQ). The tell-tale dmesg errors look like this:
+        [ 9.115544] ata9: exception Emask 0x0 SAct 0xf SErr 0x0 action 0x10 frozen
+        [ 9.115550] ata9.00: failed command: READ FPDMA QUEUED
+        [ 9.115556] ata9.00: cmd <sup>60</sup>&frasl;<sub>04</sub>:00:d4:82:<sup>85</sup>&frasl;<sub>00</sub>:00:1f:00:00/40 tag 0 ncq 2048 in
+        [ 9.115557] res <sup>40</sup>&frasl;<sub>00</sub>:18:d3:82:<sup>85</sup>&frasl;<sub>00</sub>:00:1f:00:00/40 Emask 0x4 (timeout)</p>
+
+<p>To disable NCQ on boot, add
+        libata.force=noncq</p>
+
+<p>to the kernel command line in the bootloader configuration. To disable NCQ only for disk 0 on port 1 use:</p>
+
+<pre><code>    libata.force=1.00:noncq
+</code></pre>
+
+<h3 id="add-default-user">Add default user</h3>
+
+<pre><code>    # useradd -m -G wheel -s /bin/bash archie
+</code></pre>
+
+<p>Setup password for new user:</p>
+
+<pre><code>    # passwd archie
+</code></pre>
+
+<h3 id="sudo">Sudo</h3>
+
+<pre><code>    # pacman -S sudo
+</code></pre>
+
+<p>Configure for a given user:</p>
+
+<pre><code>    # visudo
+</code></pre>
+
+<p>and add:</p>
+
+<pre><code>    archie   ALL=(ALL) ALL
+</code></pre>
+
+<h3 id="add-additional-repositories">Add additional repositories</h3>
+
+<p>Most people will want to use [core], [extra] and [community].</p>
+
+<h4 id="multilib">Multilib</h4>
+
+<p>If you installed Arch Linux x86_64, it&rsquo;s recommended that you enable the [multilib] repository, as well (to be able to run both 32 bit and 64 bit applications):</p>
+
+<pre><code>    [multilib]
+    Include = /etc/pacman.d/mirrorlist
+</code></pre>
+
+<h4 id="archlinuxfr">archlinuxfr</h4>
+
+<p>Required for installing yaourt &amp; virtualbox and many other packages</p>
+
+<p>Add as root the following into /etc/pacman.conf (this is for a 64-bit installation) :</p>
+
+<pre><code>    [archlinuxfr]
+    SigLevel = Optional TrustAll
+    Server = http://repo.archlinux.fr/x86_64
+</code></pre>
+
+<p>Refresh software list with:</p>
+
+<pre><code>    # pacman -Syy
+</code></pre>
+
+<h4 id="package-management-with-yaourt-rather-than-pacman">Package management with Yaourt rather than pacman</h4>
+
+<p>Add nice colors when browsing packages</p>
+
+<pre><code>    # pacman -S yaourt colordiff
+</code></pre>
+
+<p>Search both binary repo but also AUR</p>
+
+<pre><code>    # yaourt mc
+</code></pre>
+
+<p>Complete update and upgrade, even for packages coming from AUR</p>
+
+<pre><code>    # yaourt -Syu --aur
+</code></pre>
+
+<h3 id="setup-automatic-microcode-loading">Setup automatic microcode loading</h3>
+
+<p>For AMD processors the microcode updates are available in linux-firmware, which is installed as part of the base system. No further action is needed.</p>
+
+<p>For Intel processors, install the intel-ucode package, and continue reading:</p>
+
+<pre><code>    # pacman -S intel-ucode
+</code></pre>
+
+<p>grub-mkconfig will automatically detect the microcode update and configure grub appropriately. After installing the intel-ucode package, users are directed to regenerate the grub config to activate loading the microcode update by running:</p>
+
+<pre><code>    # grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre>
+
+<h3 id="install-xorg">Install Xorg</h3>
+
+<h4 id="core-xorg-install">Core Xorg install</h4>
+
+<pre><code>    # pacman -S xorg-server xorg-xinit xorg-server-utils
+</code></pre>
+
+<p>&mdash;&gt;
+4 providers for libgl:
+1) mesa-libgl 2) nvidia-304xx-libgl 3) nvidia-340xx-libgl 4) nvidia-libgl</p>
+
+<p>2 providers for xf86-input-driver
+1) xf86-input-evdev 2) xf86-input-libinput</p>
+
+<p>&mdash;-&gt;</p>
+
+<p>The 3D utilities glxgears and glxinfo are included in the mesa package:</p>
+
+<pre><code>    # pacman -S mesa
+</code></pre>
+
+<h4 id="identify-video-driver">Identify video driver</h4>
+
+<p>Then you need to install a suitable driver for your graphic card. You need to know its brand and model then consult main Archlinux wiki to see which driver better fits your needs. The output of the command:</p>
+
+<pre><code>    # lspci | grep VGA
+</code></pre>
+
+<p>should help you to identify your card.</p>
+
+<p>For a complete list of open-source video drivers, search the package database:</p>
+
+<pre><code>    # pacman -Ss xf86-video | less
+</code></pre>
+
+<p>The following is for an Intel based graphic card.</p>
+
+<pre><code>    # pacman -S xf86-video-intel lib32-mesa-libgl
+</code></pre>
+
+<h4 id="keyboard-mouse">Keyboard &amp; mouse</h4>
+
+<p>Keyboard layout in Xorg can be set in multiple ways. Here is an explanation of used options:
+XkbModel selects the keyboard model. This has an influence only for some extra keys your keyboard might have. The safe fallback are pc104 or pc105. But for instance laptops usually have some extra keys, and sometimes you can make them work by simply setting a proper model.
+XkbLayout selects the keyboard layout. Multiple layouts may be specified in a comma-separated list, e.g. if you want to quickly switch between layouts.
+XkbVariant selects a specific layout variant. For instance, the default sk variant is qwertz, but you can manually specify qwerty, etc.
+XkbOptions contains some extra options. Used for specifying layout switching, notification LED, compose mode etc.</p>
+
+<p>The layout name is usually a 2-letter country code. To see a full list of keyboard models, layouts, variants and options, along with a short description, open /usr/share/X11/xkb/rules/base.lst. Alternatively, you may use one of the following commands to see a list without a description:</p>
+
+<pre><code># localectl list-x11-keymap-models
+# localectl list-x11-keymap-layouts
+# localectl list-x11-keymap-variants [layout]
+# localectl list-x11-keymap-options
+</code></pre>
+
+<p>One way to create a system-wide configuration which is persistent across reboots and found in /etc/X11/xorg.conf.d/00-keyboard.conf</p>
+
+<p>For convenience, the tool localectl may be used instead of manually editing X configuration files. It will save the configuration in /etc/X11/xorg.conf.d/00-keyboard.conf, this file should not be manually edited, because localectl will overwrite the changes on next start.
+The usage is as follows:</p>
+
+<pre><code># localectl [--no-convert] set-x11-keymap layout [model [variant [options]]]
+</code></pre>
+
+<p>To set a model, variant or options, all preceding fields need to be specified. Unless the &ndash;no-convert option is passed, the specified keymap is also converted to the closest matching console keymap and applied to the console configuration in vconsole.conf. See man localectl for more information.</p>
+
+<p>To create, for example a configuration for a French keyboard that will be stored in /etc/X11/xorg.conf.d/00-keyboard.conf:</p>
+
+<pre><code># localectl --no-convert set-x11-keymap fr pc104
+</code></pre>
+
+<p>Laptop users will also need the synaptics package to allow X to configure the touchpad:</p>
+
+<pre><code>    # pacman -S xf86-input-synaptics
+</code></pre>
+
+<p>The primary method of configuration for the touchpad is through an Xorg server configuration file. After installation of xf86-input-synaptics, a default configuration file is located at /usr/share/X11/xorg.conf.d/50-synaptics.conf. Users can copy this file to /etc/X11/xorg.conf.d/ and edit it to configure the various driver options available. Refer to the synaptics(4) manual page for a complete list of available options. Machine-specific options can be discovered using synclient.</p>
+
+<p>The following lists options that many users may wish to configure. This example configuration file enables vertical, horizontal and circular scrolling as well as touchpad tap to click:
+/etc/X11/xorg.conf.d/50-synaptics.conf</p>
+
+<pre><code>    Section &quot;InputClass&quot;
+        Identifier &quot;touchpad&quot;
+        Driver &quot;synaptics&quot;
+        MatchIsTouchpad &quot;on&quot;
+        Option &quot;TapButton1&quot; &quot;1&quot;
+        Option &quot;TapButton2&quot; &quot;2&quot;
+        Option &quot;TapButton3&quot; &quot;3&quot;
+        Option &quot;VertEdgeScroll&quot; &quot;on&quot;
+        Option &quot;VertTwoFingerScroll&quot; &quot;on&quot;
+        Option &quot;HorizEdgeScroll&quot; &quot;on&quot;
+            Option &quot;HorizTwoFingerScroll&quot; &quot;on&quot;
+            Option &quot;CircularScrolling&quot; &quot;on&quot;
+            Option &quot;CircScrollTrigger&quot; &quot;2&quot;
+        Option &quot;EmulateTwoFingerMinZ&quot; &quot;40&quot;
+        Option &quot;EmulateTwoFingerMinW&quot; &quot;8&quot;
+        Option &quot;CoastingSpeed&quot; &quot;0&quot;
+        Option &quot;FingerLow&quot; &quot;35&quot;
+        Option &quot;FingerHigh&quot; &quot;40&quot;
+        ...
+    EndSection
+</code></pre>
+
+<h4 id="test-x">Test X</h4>
+
+<p>Install the default environment:</p>
+
+<pre><code>    # pacman -S xorg-twm xorg-xclock xterm
+</code></pre>
+
+<p>Start X</p>
+
+<pre><code>    # startx
+</code></pre>
+
+<h3 id="install-fonts">Install fonts</h3>
+
+<p>At this point, you may wish to save time by installing visually pleasing, true type fonts, before installing a desktop environment/window manager. Dejavu and bitstream-vera are good, general-purpose font sets. You may also want to have the Microsoft font sets, which are especially popular on websites.</p>
+
+<p>Install with:</p>
+
+<pre><code>    # pacman -S ttf-dejavu ttf-bitstream-vera
+    # yaourt ttf-ms-fonts 
+</code></pre>
+
+<p>Allocine is missing one font that needs to be added manually!</p>
+
+<h3 id="install-gnome">Install Gnome</h3>
+
+<h4 id="base-system">Base system</h4>
+
+<pre><code>    # pacman -S gnome gnome-extra
+</code></pre>
+
+<p>Remove tracker to enable old-fashion search in nautilus/nemo.</p>
+
+<h4 id="gdm">GDM</h4>
+
+<p>GDM is part of gnome-extra.</p>
+
+<p>To make GDM the default graphical login method for the system, use the packaged systemd service file, gdm.service. Simply run the following command once to bring up GDM on boot:</p>
+
+<pre><code>    # systemctl enable gdm
+</code></pre>
+
+<p>Starting GNOME manually</p>
+
+<p>If you prefer to start GNOME manually from the console, add the following line to your ~/.xinitrc file:</p>
+
+<p>~/.xinitrc</p>
+
+<pre><code>    exec gnome-session
+</code></pre>
+
+<p>You can get .xinitrc template from /etc/skel/.xinitc</p>
+
+<h4 id="enable-gnome-networkmanager">Enable Gnome NetworkManager</h4>
+
+<pre><code>    # systemctl enable NetworkManager
+</code></pre>
+
+<h4 id="gnome-tweak-tool">GNOME tweak tool</h4>
+
+<p>This graphical tool customizes fonts, themes, titlebar buttons and other settings should have already been installed with gnome and gnome-extra meta packages.</p>
+
+<pre><code>    # pacman -S gnome-tweak-tool
+</code></pre>
+
+<h4 id="force-xorg-backend-instead-of-the-default-gdm">Force Xorg backend instead of the default GDM</h4>
+
+<p>The Wayland backend is used by default and the Xorg backend is used only if the Wayland backend cannot be started. As the Wayland backend has been reported to cause problems for some users, use of the Xorg backend may be necessary. Using Wayland I experienced issues with Guake not being available all the time time and also couldn&rsquo;t reverse back the mouse scroll behavior back to is original state.</p>
+
+<p>To use the Xorg backend by default, edit the /etc/gdm/custom.conf file and uncomment the following line:</p>
+
+<pre><code> #WaylandEnable=false
+</code></pre>
+
+<h2 id="configure-sound">Configure sound</h2>
+
+<p>I used to configure alsa but lately I didn&rsquo;t have to configure anything to get sound working when using Gnome desktop.</p>
+
+<h3 id="nasty-bug-on-intel-hd-audio-desktop">Nasty bug on Intel HD Audio desktop</h3>
+
+<p>I had a nasty bug for more than 6 months that prevented me to play audio in a reliable way using the optical output of my motherboard. The volume control would switch to another source every second.</p>
+
+<p>Solution was found here <a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1277846">https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1277846</a></p>
+
+<pre><code># sudo pacman -S alsa-tools
+# hdajackretask
+</code></pre>
+
+<p>Click on Advanced override
+Click on Override for &ldquo;Pin ID: 0x1b (Green Headphone, Front side)&rdquo;
+Under &ldquo;Jack detection&rdquo;, select &ldquo;Not present&rdquo;
+I tried the &ldquo;Apply now&rdquo; button but it didn&rsquo;t work.
+Go for &ldquo;Install boot override&rdquo;.
+Reboot</p>
+
+<p>Install boot override will install /etc/modprobe.d/hda-jack-retask.conf</p>
+
+<pre><code># This file was added by the program 'hda-jack-retask'.
+# If you want to revert the changes made by this program, you can simply erase this file and reboot your computer.
+options snd-hda-intel 
+patch=hda-jack-retask.fw,hda-jack-retask.fw,hda-jack-retask.fw,hda-jack-retask.fw
+</code></pre>
+
+<h2 id="guake">Guake</h2>
+
+<pre><code># pacman -S guake
+</code></pre>
+
+<p>To get guake to autostart on login, use gnome-tweak-tool.</p>
+
+<h2 id="zsh">ZSH</h2>
+
+<pre><code># pacman -S zsh 
+</code></pre>
+
+<p>Change the default shell for the current user:</p>
+
+<pre><code># chsh -s $(which zsh)
+</code></pre>
+
+<h3 id="prezto">Prezto</h3>
+
+<p>I used to add grem-zsh-config and oh-my-zsh. Now switched to prezto
+Instead of using the version found in AUR, I direclty clone the repo to my home directory.</p>
+
+<pre><code>    # git clone --recursive https://github.com/sorin-ionescu/prezto.git &quot;${ZDOTDIR:-$HOME}/.zprezto&quot; 
+</code></pre>
+
+<p>To personalize Zsh and Prezto, edit your local ~/.zshrc and ~/.zpreztorc files.</p>
+
+<p>Create a new Zsh configuration by copying the Zsh configuration files provided:</p>
+
+<pre><code>    setopt EXTENDED_GLOB
+    for rcfile in &quot;${ZDOTDIR:-$HOME}&quot;/.zprezto/runcoms/^README.md(.N); do
+      ln -s &quot;$rcfile&quot; &quot;${ZDOTDIR:-$HOME}/.${rcfile:t}&quot;
+    done
+</code></pre>
+
+<p>Updating</p>
+
+<p>Pull the latest changes and update submodules.</p>
+
+<p>git pull &amp;&amp; git submodule update &ndash;init &ndash;recursive</p>
+
+<p>Paste my .zshrz and .zpreztorc examples!!</p>
+
+<p>cursors !!!
+<a href="https://github.com/sorin-ionescu/prezto/issues/424">https://github.com/sorin-ionescu/prezto/issues/424</a></p>
+
+<p>ssh
+keychain for .zshrc
+but also</p>
+
+<p>eval $(keychain &ndash;eval &ndash;nogui &ndash;quiet id_ed25519-nopass id_rsa_key-nopass) &amp;</p>
+
+<p>in .delayed_apps for the keys without password</p>
+
+<p>issues with CUPS
+<a href="https://bbs.archlinux.org/viewtopic.php?id=192525">https://bbs.archlinux.org/viewtopic.php?id=192525</a>
+<a href="https://bugs.archlinux.org/task/43708">https://bugs.archlinux.org/task/43708</a></p>
+
+<p>issue with package keys
+pacman-key &ndash;refresh-keys</p>
+
+<h2 id="enable-autologin">Enable autologin</h2>
+
+<p>You can have GDM to directly log into your sessions without promptint for any password (safe since the whole disk is encrypted).</p>
+
+<p>Edit /etc/gdm/custom.conf</p>
+
+<pre><code> # GDM configuration storage
+ [daemon]
+ AutomaticLogin=alpha
+ AutomaticLoginEnable=True
+</code></pre>
+
+<h2 id="check-if-ssd-trim-is-working">Check if SSD TRIM is working</h2>
+
+<p><a href="https://sites.google.com/site/lightrush/random-1/checkiftrimonext4isenabledandworking">https://sites.google.com/site/lightrush/random-1/checkiftrimonext4isenabledandworking</a></p>
+
+<p><a href="http://worldsmostsecret.blogspot.fr/2012/04/how-to-activate-trim-on-luks-encrypted.html">http://worldsmostsecret.blogspot.fr/2012/04/how-to-activate-trim-on-luks-encrypted.html</a></p>
+
+<p>sudo dmsetup table /dev/mapper/vgroup &ndash;showkeys</p>
+
+<h2 id="enable-predicatable-network-interface-name">Enable predicatable network interface name</h2>
+
+<p>For motherboards that have integrated NICs, it is important to have fixed device name. Many configuration problems are caused by interface name changing.</p>
+
+<p>Udev is responsible for which device gets which name. Systemd v197 introduced Predictable Network Interface Names, which automatically assigns static names to network devices. Interfaces are now prefixed with en (ethernet), wl (WLAN), or ww (WWAN) followed by an automatically generated identifier, creating an entry such as enp0s25.</p>
+
+<p>This behavior may be disabled by adding a symlink:</p>
+
+<pre><code># sudo ln -s /dev/null /etc/udev/rules.d/80-net-name-slot.rules
+</code></pre>
+
+<h1 id="ntp">NTP</h1>
+
+<pre><code># pacman ntpd
+# sytstemctl enable ntpd
+</code></pre>
+
+<h2 id="cups">CUPS</h2>
+
+<p>cups cups-filters cups-pdf system-config-printer-gnome</p>
+
+<p>sudo pacman -S foomatic-db foomatic-db-engine foomatic-db-nonfree foomatic-filters</p>
+
+<ul>
+<li>explaing PDF setup
+To use cups-pdf, restart cups and visit the cups
+web interface at <a href="http://localhost:631/">http://localhost:631/</a></li>
+</ul>
+
+<p>You can now add a &ldquo;Virtual Printer (PDF Printer)&rdquo;
+and use the Postscript/Generic postscript color
+printer driver.</p>
+
+<p>Note that cups-pdf has a configuration
+file in /etc/cups. The default location for
+pdf output is /var/spool/cups-pdf/$username.</p>
+
+<h2 id="disable-pc-speaker-sound">Disable pc speaker sound</h2>
+
+<p>Createc /etc/modprobe.d/blacklist.conf with :</p>
+
+<p>blacklist pcspkr</p>
+
+<hr />
+
+<p>+++ Backup keys</p>
+
+<pre><code>dmsetup table --showkey
+
+cryptsetup luksDump /dev/sda3 | grep &quot;Payload offset&quot;
+</code></pre>
+
+<p>Note Payload offset:    4040</p>
+
+<p>then</p>
+
+<pre><code>dd if=/dev/sda3 of=./backup.img bs=512 count=4040
+
+dmsetup info -c
+</code></pre>
+
+<p>How do I backup a LUKS header?</p>
+
+<p>While you could just copy the appropriate number of bytes from the start of the LUKS partition, the best way is to use command option &ldquo;luksHeaderBackup&rdquo; of cryptsetup. This protects also against errors when non-standard parameters have been used in LUKS partition creation. Example:</p>
+
+<pre><code>     cryptsetup luksHeaderBackup --header-backup-file h /dev/mapper/c1
+     cryptsetup luksHeaderBackup --header-backup-file h /dev/sda3
+</code></pre>
+
+<p>To restore, use the inverse command, i.e.</p>
+
+<pre><code>     cryptsetup luksHeaderRestore --header-backup-file h /dev/mapper/c1
+</code></pre>
+
+<p>LVM header backup
+         vgcfgbackup -f x201-lvm vgroup</p>
+
+<p>+++ Restore keys</p>
+
+<p>If you have live mapping still, you are not lost completely yet.
+Do not reboot! First run &ldquo;dmsetup table &ndash;showkeys&rdquo; and &ldquo;dmsetup info -c&rdquo;
+and store the full mapping to some file.</p>
+
+<p>If you see dm-crypt mapping there mapped to proper drive, you can still recreate
+LUKS header with some some magic.</p>
+
+<p>(If you have saved that dmsetup mapping, I&rsquo;ll describe hot to save you data
+- still depends how many of fs was overwritten.)</p>
+
+<p>If you want help with that, paste here &ldquo;dmsetup table&rdquo; (<em>without</em> using &ndash;showkeys,
+we do not want see your master key:-). For recovery you will need to know that key,
+so be sure you have full table with key stored as written above.</p>
+
+<p>(Table is created according to LUKS header which is lost, so after reboot you are
+lost completely. BTW Passphrase will not help here at all.)
+<a href="http://www.spinics.net/lists/dm-crypt/msg02914.html">http://www.spinics.net/lists/dm-crypt/msg02914.html</a>
+<a href="https://code.google.com/p/cryptsetup/wiki/FrequentlyAskedQuestions#6._Backup_and_Data_Recovery">https://code.google.com/p/cryptsetup/wiki/FrequentlyAskedQuestions#6._Backup_and_Data_Recovery</a></p>
+
+<p>UUID
+<a href="http://www.datadisk.co.uk/html_docs/redhat/rh_lvm.htm">http://www.datadisk.co.uk/html_docs/redhat/rh_lvm.htm</a>
+<a href="https://www.centos.org/docs/5/html/Cluster_Logical_Volume_Manager/mdatarecover.html">https://www.centos.org/docs/5/html/Cluster_Logical_Volume_Manager/mdatarecover.html</a></p>
+
+<p>p
+dd if=./backup.img of=/dev/sda3 bs=512 count=4040</p>
+
+<hr />
+
+<p>++ Manual Luks volume</p>
+
+<p>dd if=/dev/zero of=/bigsecret bs=1M count=10
+losetup /dev/loop0 /bigsecret
+cryptsetup luksFormat /dev/loop0
+===&gt; cryptsetup luksFormat -c cast5-cbc-plain -s 128 -h sha256 /dev/$DEVICE
+cryptsetup luksOpen /dev/loop0 secret</p>
+
+<p>FORMAT
+mkfs.ext2 /dev/mapper/secret</p>
+
+<p>MOUNT
+mkdir /mnt/secret
+mount -t ext2 /dev/mapper/secret /mnt/secret</p>
+
+<p>UMOUNT
+umount /mnt/secret
+cryptsetup luksClose secret
+losetup -d /dev/loop0 # free the loopdevice.</p>
+
+<p>REMOUNT
+losetup /dev/loop0 /bigsecret
+cryptsetup luksOpen /dev/loop0 secret
+mount -t ext2 /dev/mapper/secret /mnt/secret</p>
+
+<p>check if trim is enabled
+<a href="https://sites.google.com/site/lightrush/random-1/checkiftrimonext4isenabledandworking">https://sites.google.com/site/lightrush/random-1/checkiftrimonext4isenabledandworking</a></p>
+
+<h2 id="remove-guake-title">Remove guake title</h2>
+
+<pre><code># gconf-editor
+
+
+/apps/guake/general/use_vte_titles 
+</code></pre>
+
+<h2 id="fix-nautilus-sort">Fix Nautilus sort</h2>
+
+<p><a href="http://www.subdude-site.com/WebPages_Local/RefInfo/Computer/Linux/LinuxGuidesByBlaze/Nautilus_Guide/NautilusGuideBlaze.htm#grp_NautilusSort">http://www.subdude-site.com/WebPages_Local/RefInfo/Computer/Linux/LinuxGuidesByBlaze/Nautilus_Guide/NautilusGuideBlaze.htm#grp_NautilusSort</a></p>
+
+<p>Create/Edit ~/.gnomerc</p>
+
+<p>and add</p>
+
+<pre><code>#export LC_COLLATE=C  That was the original post
+</code></pre>
+
+<p>replaced by</p>
+
+<pre><code>#export LC_COLLATE=&quot;fr_FR.UTF-8&quot;
+</code></pre>
+
+<p>IMPORTANT NOTE: You must make the &lsquo;.gnomerc&rsquo; file executable before restarting your computer. You can use a command like</p>
+
+<p>chmod 755 .gnomerc
+      or
+chmod 700 .gnomerc</p>
+
+<p><a href="https://bbs.archlinux.org/viewtopic.php?pid=1081952">https://bbs.archlinux.org/viewtopic.php?pid=1081952</a></p>
+
+<p>In the end I got it working with:
+/etc/locale.conf</p>
+
+<pre><code>LANG=fr_FR.UTF-8
+#LC_COLLATE=&quot;C&quot;
+LC_COLLATE=&quot;fr_FR.UTF-8&quot;
+</code></pre>
+
+<p>and adding/modifying the following in  ~/.zshrc.local</p>
+
+<pre><code>export LC_ALL=&quot;fr_FR.UTF-8&quot;
+#export LC_COLLATE=&quot;C&quot;
+export LC_COLLATE=&quot;fr_FR.UTF-8&quot;
+</code></pre>
+
+<h2 id="cups-1">CUPS</h2>
+
+<pre><code># systemctl enable cups.service
+</code></pre>
+
+<h2 id="cups-pdf">CUPS PDF</h2>
+
+<p>PDF virtual printer</p>
+
+<p>CUPS-PDF is a nice package that allows one to setup a virtual printer that will generate a PDF from anything sent to it. Obviously this package is not necessary, but it can be quite useful.</p>
+
+<p>Find generated PDF documents in a sub-directory located at /var/spool/cups-pdf. Normally, the subdirectory is named after the user who performed the job. A little tweak helps you to find your printed PDF documents more easily. Edit /etc/cups/cups-pdf.conf by changing the line</p>
+
+<pre><code>#Out /var/spool/cups-pdf/${USER}
+
+    to
+
+Out /home/${USER}
+
+This package can be installed by the following command: 
+
+pacman -S cups-pdf
+</code></pre>
+
+<p>After installing the package, set it up as if it were for any other printer by using the web interface. For the Device, select CUPS-PDF (Virtual PDF Printer); Make/Manufacturer, choose Generic; Model/Driver, select Generic postscript color printer or Generic Cups-PDF Printer.</p>
+
+<p>Quality sucks!</p>
+
+<h2 id="cron">Cron</h2>
+
+<p>Not enabled by default</p>
+
+<pre><code># systemctl enable cronie.service
+</code></pre>
+
+<h2 id="journal">Journal</h2>
+
+<p>Since version 38, systemd has its own logging system, the journal. Therefore, running a syslog daemon is no longer required. To read the log, use:</p>
+
+<pre><code># journalctl
+</code></pre>
+
+<p>By default (when Storage= is set to auto in /etc/systemd/journald.conf), the journal writes to /var/log/journal/. If the directory /var/log/journal/ does not exist (e.g. if you or some program delete it), systemd will not create it automatically, but instead write its logs to /run/systemd/journal. This means that logs will be lost on reboot.</p>
+
+<p>On default installation it appears to be using /var/log/journal</p>
+
+<h2 id="disable-ipv6">Disable IPV6</h2>
+
+<p>Adding ipv6.disable=1 to the kernel line disables the whole IPv6 stack, which is likely what you want if you are experiencing issues. See Kernel parameters for more information.</p>
+
+<h2 id="crpyptostick-gnome">Crpyptostick &amp; Gnome</h2>
+
+<ul>
+<li><p>Disabled gnome-keyring in gnome-session-properties</p></li>
+
+<li><p>disable gpg-agent in ~/.gnupg.conf</p></li>
+
+<li><p>create /etc/profile.d/gpg-agent.sh</p>
+
+<p>#!/bin/sh</p>
+
+<p>envfile=&ldquo;${HOME}/.gnupg/gpg-agent.env&rdquo;
+if test -f &ldquo;$envfile&rdquo; &amp;&amp; kill -0 $(grep GPG_AGENT_INFO &ldquo;$envfile&rdquo; | cut -d: -f 2) 2&gt;/dev/null; then
+    eval &ldquo;$(cat &ldquo;$envfile&rdquo;)&rdquo;
+    else
+eval &ldquo;$(gpg-agent &ndash;daemon &ndash;write-env-file &ldquo;$envfile&rdquo;)&rdquo;</p>
+
+<h1 id="eval-gpg-agent-daemon-enable-ssh-support-write-env-file-envfile">eval &ldquo;$(gpg-agent &ndash;daemon &ndash;enable-ssh-support &ndash;write-env-file &ldquo;$envfile&rdquo;)&rdquo;</h1>
+
+<p>fi
+export GPG_AGENT_INFO  # the env file does not contain the export statement</p></li>
+</ul>
+
+<p>chmod + x /etc/profile/d/gpg-agent.sh</p>
+
+<ul>
+<li><p>create /etc/udev/rules.d/40-cryptostick.rules</p>
+
+<h1 id="do-not-edit-this-file-it-will-be-overwritten-on-update">do not edit this file, it will be overwritten on update</h1>
+
+<p>SUBSYSTEM!=&ldquo;usb&rdquo;, GOTO=&ldquo;cryptostick_rules_end&rdquo;
+ACTION!=&ldquo;add&rdquo;, GOTO=&ldquo;cryptostick_rules_end&rdquo;</p>
+
+<p>ATTR{idVendor}==&ldquo;20a0&rdquo;, ATTR{idProduct}==&ldquo;4107&rdquo;, ENV{ID_SMARTCARD_READER}=&ldquo;1&rdquo;, ENV{ID_SMARTCARD_READER_DRIVER}=&ldquo;gnupg&rdquo;</p>
+
+<p>LABEL=&ldquo;cryptostick_rules_end&rdquo;</p></li>
+</ul>
+
+<p>issues with i915</p>
+
+<p>removed echo 0 &gt; /sys/module/i915/parameters/i915_enable_rc6
+          echo 0 &gt; /sys/module/i915/parameters/i915_enable_fbc
+          echo 0 &gt; /sys/module/i915/parameters/powersave</p>
+
+<p>from /usr/bin/powersave</p>
+
+<p>Added i915 in /etc/mkinitcpio.conf
+Created /etc/modprobe.d/i915.conf</p>
+
+<p>options i915 i915_enable_rc6=1
+options i915 i915_enable_fbc=1
+options i915 lvds_downclock=1</p>
+
+<p>Removed from grub default</p>
+
+<p>apparement si i915 est dans mkinitcpio.conf alors on ne peut plus l&rsquo;écrire après, uniquement via i915.conf (a investiguer)</p>
+
+<p>in case of duplicate vgroup, rename</p>
+
+<h1 id="vgs-v">vgs -v</h1>
+
+<h1 id="vgrename-uuid-new-vgroup-name">vgrename UUID new-vgroup-name</h1>
+
+<p>macchanger on boot
+/etc/systemd/system/macspoof@.service</p>
+
+<p>[Unit]
+Description=macchanger on %I
+Before=NetworkManager.service
+After=sys-subsystem-net-devices-%I.device</p>
+
+<p>[Service]
+ExecStart=/usr/bin/macchanger -r %I
+Type=oneshot</p>
+
+<p>[Install]
+WantedBy=multi-user.target</p>
+
+<p>Then enable for each network interface.</p>
+
+<pre><code>    systemctl enable macspoof@
+
+    sudo systemctl enable macspoof@enp0s25
+    sudo systemctl enable macspoof@wlp3s0
+</code></pre>
+
+<p>dns cache + dns encrypt</p>
+
+<p>pacman -S dnsmasq dnscrypt-proxy</p>
+
+<p>/etc/dnsmasq.conf
+        no-resolv
+        server=127.0.0.1#40
+        listen-address=127.0.0.1
+        proxy-dnssec
+        domain-needed
+        bogus-priv
+        dns-forward-max=150
+        cache-size=1000
+        no-negcache</p>
+
+<p>Restart dnsmasq.service to apply the changes.</p>
+
+<p>Enable on boot: systemctl enable dnsmasq.service</p>
+
+<p>/etc/NetworkManager/NetworkManager.conf
+        [main]
+        plugins=keyfile
+        dhcp=dhclient
+        dns=default
+        #dns=dnsmasq</p>
+
+<pre><code>    ## Set static hostname
+    #[keyfile]
+    #hostname=foobar
+
+    ## HTTP-based connectivity check
+    #[connectivity]
+    #uri=http://nmcheck.gnome.org/check_network_status.txt
+    #interval=100
+</code></pre>
+
+<p>Then launch:  # systemctl edit dnscrypt-proxy.socket</p>
+
+<pre><code>    [Socket]
+    ListenStream=
+    ListenDatagram=
+    ListenStream=127.0.0.1:40
+    ListenDatagram=127.0.0.1:40
+</code></pre>
+
+<p>Then restart dnscrypt-proxy.socket and stop dnscrypt-proxy.service if already running to let it be started by the .socket unit.</p>
+
+<p>Enable on boot:</p>
+
+<pre><code>    systemctl enable dnscrypt-proxy.socket 
+</code></pre>
+
+<p>Create an lock down /etc/resolv.conf
+        echo &ldquo;nameserver 127.0.0.1&rdquo; &gt; /etc/resolv.conf
+        chattr +i resolv.conf</p>
+
+<p>Script to enable dnscrypt &amp; auto</p>
+
+<p>~/dns-auto.sh
+        #!/bin/sh
+        sudo systemctl stop NetworkManager.service
+        sleep 1
+        sudo nmcli networking off
+        sleep 1
+        sudo chattr -i /etc/resolv.conf
+        sudo rm /etc/resolv.conf
+        sudo systemctl start NetworkManager.service
+        sleep 1
+        sudo nmcli networking on
+        sleep 1</p>
+
+<p>Then change mode:
+        chmod +x dns-auto.sh</p>
+
+<p>~dns-dnscrypt.sh
+#!/bin/sh
+        sudo systemctl stop NetworkManager.service
+        sleep 1
+        sudo nmcli networking off
+        sleep 1
+        sudo chattr -i /etc/resolv.conf
+        sudo sh -c &ldquo;echo nameserver 127.0.0.1 &gt; /etc/resolv.conf&rdquo;
+        sudo chattr +i /etc/resolv.conf
+        sudo systemctl start NetworkManager.service
+        sleep 1
+        sudo nmcli networking on</p>
+
+<p>Then change mode:
+        chmod +x dns-dnscrypt.sh</p>
+
+<p>to make sure resolv.conf is the right one on boot (and also locked down):</p>
+
+<p>/etc/systemd/system/dnscrypt-reset.service
+        [Unit]
+        Description=Reset /etc/resolv.conf and lock it
+        After=NetworkManager.service</p>
+
+<pre><code>    [Service]
+    ExecStart=/home/alpha/dns-dnscrypt.sh
+    Type=oneshot
+
+    [Install]
+    WantedBy=multi-user.target
+</code></pre>
+
+<p>Enable on boot:</p>
+
+<pre><code>    systemctl enable dnscrypt-reset.service 
+</code></pre>
+
+<p>Change default server
+systemctl edit dnscrypt-proxy.service &ndash;full</p>
+
+<p>soltysiak<br />
+dnscrypt.eu-dk</p>
+
+<p>trim test
+<a href="https://unix.stackexchange.com/questions/85865/trim-with-lvm-and-dm-crypt/85880#85880">https://unix.stackexchange.com/questions/85865/trim-with-lvm-and-dm-crypt/85880#85880</a></p>
+
+<p>This is just a script I would like to share if some lazy person come here. It was made out of the accepted answer from frostschutz.
+<a href="http://unix.stackexchange.com/a/85880/6661">http://unix.stackexchange.com/a/85880/6661</a></p>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://danynativel.net/2017/01/29/archlinux-installation-guide-on-encrypted-ssd-2017/" data-id="7507655e4760c337ea1b4a5502586309" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://danynativel.net/2017/01/29/archlinux-installation-guide-on-encrypted-ssd-2017/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://danynativel.net/2016/10/05/fixing-cressi-drake-max-dive-time/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">Fixing Cressi Drake Max Dive Time</div>
+    </a>
+    
+
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "danynativel" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/computer">
+                    computer
+                </a>
+                <span class="category-list-count">9</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/freediving">
+                    freediving
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/photography">
+                    photography
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/archlinux">
+                    archlinux
+                </a>
+                <span class="category-list-count">6</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/hacking">
+                    hacking
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/hardware">
+                    hardware
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/how-to">
+                    how-to
+                </a>
+                <span class="category-list-count">9</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/linux">
+                    linux
+                </a>
+                <span class="category-list-count">8</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/security">
+                    security
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/tips">
+                    tips
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/unraid">
+                    unraid
+                </a>
+                <span class="category-list-count">3</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://danynativel.net/tags/archlinux" style="font-size: 12px;">archlinux</a>
+        
+        
+        <a href="https://danynativel.net/tags/hacking" style="font-size: 12px;">hacking</a>
+        
+        
+        <a href="https://danynativel.net/tags/hardware" style="font-size: 12px;">hardware</a>
+        
+        
+        <a href="https://danynativel.net/tags/how-to" style="font-size: 12px;">how-to</a>
+        
+        
+        <a href="https://danynativel.net/tags/linux" style="font-size: 12px;">linux</a>
+        
+        
+        <a href="https://danynativel.net/tags/security" style="font-size: 12px;">security</a>
+        
+        
+        <a href="https://danynativel.net/tags/tips" style="font-size: 12px;">tips</a>
+        
+        
+        <a href="https://danynativel.net/tags/unraid" style="font-size: 12px;">unraid</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://danynativel.net/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://danynativel.net/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

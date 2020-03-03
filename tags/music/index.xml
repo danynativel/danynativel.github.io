@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Music on Dany Nativel</title>
+    <link>https://danynativel.net/tags/music/</link>
+    <description>Recent content in Music on Dany Nativel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 28 May 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://danynativel.net/tags/music/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Audition de piano du 28 mai 2016</title>
+      <link>https://danynativel.net/2016/05/28/audition-de-piano-du-28-mai-2016/</link>
+      <pubDate>Sat, 28 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2016/05/28/audition-de-piano-du-28-mai-2016/</guid>
+      <description>Audition de piano de la classe de Martine Gauthier du 28 mai 2016.
+  </description>
+    </item>
+    
+    <item>
+      <title>Spectacle de Musique de St-Cyr sur Mer</title>
+      <link>https://danynativel.net/2015/04/19/spectacle-de-musique-de-st-cyr-sur-mer/</link>
+      <pubDate>Sun, 19 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2015/04/19/spectacle-de-musique-de-st-cyr-sur-mer/</guid>
+      <description> 10ème Indoor de la Ciotat  --  Lien vers la galerie photos   </description>
+    </item>
+    
+  </channel>
+</rss>

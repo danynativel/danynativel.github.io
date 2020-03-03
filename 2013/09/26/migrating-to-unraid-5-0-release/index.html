@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Migrating to unRAID 5.0 Release &middot; Dany Nativel</title>
+    <meta name="generator" content="Hugo 0.40.3" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Dany Nativel">
+    
+      <meta name="description" content="">
+    
+    
+    <link rel="canonical" href="https://danynativel.net/2013/09/26/migrating-to-unraid-5-0-release/"/>
+    <link rel="icon" href="https://danynativel.net/favicon.ico">
+    <link rel="apple-touch-icon" href="https://danynativel.net/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://danynativel.net/css/style.css">
+    <link rel="stylesheet" href="https://danynativel.net/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://danynativel.net/css/monokai.css">
+    <link rel="stylesheet" href="https://danynativel.net/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Migrating to unRAID 5.0 Release" />
+<meta property="og:description" content="unRAID 5.0 has now  been officially released. Considering the significant changes, upgrade is not as smooth as it used to be so it is better to start off from scratch with a clean USB drive that only contains disk configuration. With the new add-ons management options it requires less tweaking in the &lsquo;go&rsquo; startup file. Please read the release note. Depending of your current version you might just have to upgrade the unRaid image while with other (i.e. any 5.0 beta) it is advised to go through a fresh installation while using exisiting disk configuration.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://danynativel.net/2013/09/26/migrating-to-unraid-5-0-release/" />
+
+
+
+<meta property="article:published_time" content="2013-09-26T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2013-09-26T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Migrating to unRAID 5.0 Release">
+<meta itemprop="description" content="unRAID 5.0 has now  been officially released. Considering the significant changes, upgrade is not as smooth as it used to be so it is better to start off from scratch with a clean USB drive that only contains disk configuration. With the new add-ons management options it requires less tweaking in the &lsquo;go&rsquo; startup file. Please read the release note. Depending of your current version you might just have to upgrade the unRaid image while with other (i.e. any 5.0 beta) it is advised to go through a fresh installation while using exisiting disk configuration.
+
+">
+
+
+<meta itemprop="datePublished" content="2013-09-26T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2013-09-26T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1896">
+
+
+
+<meta itemprop="keywords" content="Linux,How-To,unRaid," />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Migrating to unRAID 5.0 Release"/>
+<meta name="twitter:description" content="unRAID 5.0 has now  been officially released. Considering the significant changes, upgrade is not as smooth as it used to be so it is better to start off from scratch with a clean USB drive that only contains disk configuration. With the new add-ons management options it requires less tweaking in the &lsquo;go&rsquo; startup file. Please read the release note. Depending of your current version you might just have to upgrade the unRaid image while with other (i.e. any 5.0 beta) it is advised to go through a fresh installation while using exisiting disk configuration.
+
+"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://danynativel.net/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://danynativel.net/img/facevase.png')"></i>
+          
+          <span class="site-title">Dany Nativel</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/">Home</a>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/categories/">Categories</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://www.danynativel.com">Street Photography</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://danynativel.net/img/dnativel.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://danynativel.net/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/">Home</a></td>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/categories/">Categories</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://www.danynativel.com">Street Photography</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://danynativel.net/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://danynativel.net/img/dnativel.png">
+      
+      <h2 id="name">Dany Nativel</h2>
+      <h3 id="title">Freediver - Photographer - Privacy &amp; FOSS advocate</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>France</span>
+      
+          <a id="follow" href="https://www.instagram.com/dany.nativel">
+              Follow
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        11
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          8
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//instagram.com/dany.nativel" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//linkedin.com/in/danynativel" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//keybase.io/danynativel" target="_blank" title="Keybase"><i class="fa fa-key"></i></a></td>
+
+
+
+<td><a href="http://www.danynativel.com/" target="_blank" title="Street Photography Official Website"><i class="fa fa-camera-retro"></i></a></td>
+
+
+
+
+
+<td><a href="mailto:dany@nativel.net" target="_blank" title="Email"><i class="fa fa-envelope"></i></a></td>
+
+
+
+
+
+
+          <td><a href="https://danynativel.net/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://danynativel.net/top/raid-and-server.jpg" class="article-banner">
+        
+
+        <header class="article-header">
+    <a href="https://danynativel.net/2013/09/26/migrating-to-unraid-5-0-release/">
+    <h1 class="article-title" itemprop="name">
+        Migrating to unRAID 5.0 Release
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2013-09-26 00:00:00 &#43;0000 UTC" itemprop="datePublished">2013-09-26</time>
+	    
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/categories/computer">Computer</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/linux">Linux</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/how-to">How-To</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/unraid">unRaid</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>unRAID 5.0 has now  been officially released. Considering the significant changes, upgrade is not as smooth as it used to be so it is better to start off from scratch with a clean USB drive that only contains disk configuration. With the new add-ons management options it requires less tweaking in the &lsquo;go&rsquo; startup file. Please read the release note. Depending of your current version you might just have to upgrade the unRaid image while with other (i.e. any 5.0 beta) it is advised to go through a fresh installation while using exisiting disk configuration.</p>
+
+<p></p>
+
+<h2 id="warning">Warning!</h2>
+
+<p>Only upgrade a server that has all disks enabled with valid parity: no missing disk(s), no disabled disk, etc. Verify everything is working correctly with your current release before proceeding.</p>
+
+<p>Backup the entire contents of your Flash device before upgrading.  If something goes wrong or a major problem is uncovered in the release this will make it easier for you to downgrade. You will also need it the backup to get your disk configuration.</p>
+
+<p>Record the model, serial number, and position of each of your hard disks. Perhaps the easiest way to do this is  to take a screen capture of the webGui Main page.</p>
+
+<figure>
+    <img src="/img/unraid-main.png"  />
+<!---
+    <figcaption>
+        <h4>10ème Indoor de la Ciotat</h4>
+    </figcaption>
+-->
+</figure>
+
+<h2 id="bare-unraid-5-0-installation">Bare unRAID 5.0 installation</h2>
+
+<h3 id="format-usb-drive">Format USB Drive</h3>
+
+<p>You have been warned already. <strong>BACKUP</strong> the USB drive first so you don&rsquo;t lose your disk configuration.</p>
+
+<p>Open My Computer (XP) or Computer (Vista/Win7), right-click your Flash device and select Format…</p>
+
+<p>For File system, leave what Windows sets as default.</p>
+
+<p>For Volume label, enter use the following (all-caps)!</p>
+
+<pre><code> UNRAID
+</code></pre>
+
+<p>Select Quick Format and click Start.</p>
+
+<h3 id="copy-unraid-5-0-files-and-make-disk-bootable">Copy unRAID 5.0 files and make disk bootable</h3>
+
+<p>Download latest unRAID 5.0 Release files from <a href="http://lime-technology.com/download/">here</a></p>
+
+<p>Click on your Flash device (to open it) and drag the entire contents of the unRAID Server release zip file to the Flash.</p>
+
+<p>For Windows XP, click the file make_bootable.  A DOS window will open and run the syslinux utility on the Flash.  For Windows Vista or Windows 7, right-click the file make_bootable and select Run as administrator.</p>
+
+<h3 id="copy-back-your-configuration-files">Copy back your configuration files</h3>
+
+<p>Only copy the following files from your old /config directory to Flash drive&hellip; not the <strong>go</strong> file</p>
+
+<pre><code> disk.cfg
+ flash.cfg
+ ident.cfg
+ network.cfg
+ passwd
+ Pro.key
+ secrets.tdb
+ shadow
+ share.cfg
+ shares (directory and its content)
+ smb-extra.conf
+ smbpasswd
+ super.dat
+</code></pre>
+
+<h3 id="unmount-flash-drive">Unmount flash drive</h3>
+
+<p>Once again, right-click your Flash device in My Computer or Computer and select Eject.  Your Flash device is now ready to boot into unRAID Server OS.</p>
+
+<h3 id="boot-unraid-with-new-flash-drive">Boot unRAID with new flash drive</h3>
+
+<p>Install the flash drive on unRAID server and boot.</p>
+
+<h2 id="first-boot">First boot</h2>
+
+<p>Once system is started, check and compare the disk configuration with the screenshot you took of your last working configuration before starting the array.
+I would also recommend to check the split level for each user share and set it to <em>Disable</em> if you don&rsquo;t plan to use it on a particular share.</p>
+
+<p>When the array has successfully started you can safely enable the array <em>auto start</em> under Settings/Disk Settings.</p>
+
+<p>From now you can only Telnet to the unRAID box. SSH will be enabled later.</p>
+
+<h2 id="install-simplefeatures-add-on">Install SimpleFeatures add-on</h2>
+
+<p>SimpleFeatures adds many nice GUI tools to unRAID.</p>
+
+<p>Download <a href="https://code.google.com/p/unraid-simplefeatures/">SimpleFeatures Plugin</a> zip from our Google Code page.</p>
+
+<p>Extract and choose the plugins you wish to install. The Base package is required for all other packages to run.</p>
+
+<p>Create folder called <em>plugins</em> inside the root folder of the flash drive - <em>/boot/plugins</em></p>
+
+<p>Copy in the plugins (must have .plg extension) you wish to have installed.</p>
+
+<p>When you are done you can reboot (or continue to install other addons before rebooting).</p>
+
+<p><strong>Do not copy Web Server plugin</strong> as there is a little bug showing a timezone error in a number of pages (PHP related). I also did not copy the iTune server and DNS server. If you need the webserver plugin (i.e. to use phpvirtualbox) then you need to manually fix the plg (see below).</p>
+
+<h2 id="install-control-panel-add-on">Install Control Panel add-on</h2>
+
+<p>Instead of installing individual add-ons from [unRAID 5 plugins page](<a href="http://lime-technology.com/wiki/index.php/UnRAID5_Plugins">http://lime-technology.com/wiki/index.php/UnRAID5_Plugins</a> you can use Control Panel to manage them all from one convenient place (i.e. acupsd, bittorrent sync, cache directory, deny host, openssh, virtualbox).</p>
+
+<p>Please note that unMenu also provides its own package installer/manager that sometimes works better than the one provided by Control Panel (i.e. email notification).</p>
+
+<p>Download <a href="http://goo.gl/ab8WNQ">control_panel-ikosa.plg</a></p>
+
+<p>Copy PLG to /boot/config/plugins</p>
+
+<p>Perform an &lsquo;installplg control_panel-ikosa.plg&rsquo; or simply reboot.</p>
+
+<h2 id="install-unmenu">Install unMenu</h2>
+
+<p>Unmenu is an improved, extensible web interface to supplement the web-based management console on Lime-Technology&rsquo;s unRAID Network Attached Storage OS.</p>
+
+<p>Unmenu is a web-server and a set of web-pages written in GNU Awk. It is restricted in that it can only handle one &ldquo;request&rdquo; connection at a time. Plug-in pages can be written in &ldquo;awk&rdquo; or in any interpreted text language.</p>
+
+<p>To install this on an unRAID server Create a /boot/unmenu directory</p>
+
+<pre><code> # mkdir /boot/unmenu
+</code></pre>
+
+<p>Download the <a href="https://code.google.com/p/unraid-unmenu/downloads/list">unmenu_installXXXX.zip</a> file. The install utility will download the latest version of unMENU. (It does not have the same version number as unMENU)</p>
+
+<p>Unzip and move unmenu_install to the <em>/boot/unmenu directory</em>.</p>
+
+<p>Install unmenu by doing:</p>
+
+<pre><code> # cd /boot/unmenu
+
+ # unmenu_install -i -d /boot/unmenu
+</code></pre>
+
+<p>Edit /boot/config/go to make unMenu to start on boot by adding:</p>
+
+<pre><code>/boot/unmenu/uu
+</code></pre>
+
+<p>To start unmenu running, invoke it as</p>
+
+<pre><code>/boot/unmenu/uu
+</code></pre>
+
+<p>or</p>
+
+<pre><code> cd /boot/unmenu
+ ./uu
+</code></pre>
+
+<p>or</p>
+
+<pre><code>Reboot
+</code></pre>
+
+<p>Once running you can view the unMENU pages in your web-browser by browsing to <a href="http://tower:8080">http://tower:8080</a></p>
+
+<p>If you already have an older unmenu version installed type unmenu_install -u
+To check an existing installation for available updates, type unmenu_install -c</p>
+
+<h2 id="install-openssh">Install OpenSSH</h2>
+
+<p>Both unMenu and ControlPanel provide SSH setup. The one from ControlPanel is easy to configure even for multiple users.</p>
+
+<h3 id="enable-ssh-on-control-panel">Enable SSH on control panel</h3>
+
+<p>Click on Download Plg</p>
+
+<p>Start the service</p>
+
+<h3 id="change-default-ssh-options">Change default SSH options</h3>
+
+<p>Under Settings/OpenSSH:
+      Permit Root Login: Yes
+      Password Authentication : No
+      Permit Empty Passwords: No</p>
+
+<h3 id="copy-your-old-public-key">Copy your old public key</h3>
+
+<p>Location for ssh keys have changed and supports multiple users (the same users found in unRAID).</p>
+
+<p>It was stored in /boot/config/myconfig/ssh/idxxx.pub (for those who used my old ssh install script).</p>
+
+<pre><code>cp ../idxxx.pub /boot/config/plugins/ssh/root/.ssh/authorized_keys
+</code></pre>
+
+<p>Reboot and SSH should be working fine.</p>
+
+<p>You can check that password is disabled by logging with:</p>
+
+<pre><code> ssh root@192.168.0.10 -o PreferredAuthentications=password
+</code></pre>
+
+<p>Server should at this point returns:</p>
+
+<pre><code> Permission denied (publickey,keyboard-interactive)
+</code></pre>
+
+<p>If you don&rsquo;t like to see the <em>keyboard-interactive</em> then you can edit</p>
+
+<pre><code> /boot/config/plugins/ssh/sshd_config
+</code></pre>
+
+<p>and add</p>
+
+<pre><code>ChallengeResponseAuthentication no
+</code></pre>
+
+<h2 id="install-email-notification">Install email notification</h2>
+
+<p>SimpleFeatures ships with an easy to configure email notification but I never succeeded in setting it up. I could send the test email but never received any daily email. Therefore I decided to uninstall it by removing its file from /boot/plugins and use the email notification from unMenu.</p>
+
+<p>Go to <a href="http://tower:8080/pkg_manager">http://tower:8080/pkg_manager</a> and install both:</p>
+
+<ul>
+<li>mail and ssmtp: you will have to change the configuration variables to accommodate your own email sever.</li>
+<li>unraid-status-email:</li>
+</ul>
+
+<h2 id="setup-monthly-parity-check">Setup monthly parity check</h2>
+
+<p>Simple-features includes easy to use GUI for monthly parity check. You can configure it under Settings/SimpleFeatures.</p>
+
+<p>In case it doesn&rsquo;t work fine for you can also use the package from unMenu.</p>
+
+<h2 id="instal-other-useful-packages">Instal other useful packages</h2>
+
+<p>There are many package under Control Panel found under Settings but also with unMenu.</p>
+
+<p>Here are some interesting packages to install from unMenu via <a href="http://tower:8080/pkg_manager">http://tower:8080/pkg_manager</a> :</p>
+
+<ul>
+<li>ntfs3g: read/write access on NTFS drives</li>
+<li>powerdown: replacement for safer powerdown command and CTL+ALT+SUP support</li>
+<li>vim: CLI text editor</li>
+<li>unrar: to unrar files</li>
+<li>screen: to keep console sessions active across connections</li>
+<li>rsync: not required, it is already installed</li>
+<li>bwm-ng: track network performance</li>
+<li>encfs: access encrypted filesystems</li>
+<li>htop: monitor system performance</li>
+<li>md5deep: recursive file hash tool, it needs GCC compiler to be installed (can be installed via unMenu package manager and doesn&rsquo;t need to be started on next reboot).</li>
+</ul>
+
+<h2 id="show-cpu-motherboard-temperature-on-homepage">Show CPU &amp; motherboard temperature on homepage</h2>
+
+<p>I use a SuperMicro C2SEA motherboard and couldn&rsquo;t see the temperature on the homepage until I found the following post with a fix.</p>
+
+<p><a href="http://lime-technology.com/forum/index.php?topic=28592.msg254495#msg254495">SuperMicro C2SEE/C2SEA Temperature Display Setup</a></p>
+
+<p>Create the following (new) sensors.conf file in a persistent location (e.g. /boot/config):</p>
+
+<pre><code> # config
+
+ chip &quot;w83627dhg-isa-0290&quot;
+
+ label temp1 &quot;MB Temp&quot;
+ label temp2 &quot;CPU Temp&quot;
+</code></pre>
+
+<p>Add the following lines to your &lsquo;go&rsquo; file:</p>
+
+<pre><code> modprobe w83627ehf
+ cp /boot/config/sensors.conf /etc/sensors.d
+</code></pre>
+
+<p>Temperature should now show up.</p>
+
+<figure>
+    <img src="/img/temps.jpg"  />
+<!---
+    <figcaption>
+        <h4>10ème Indoor de la Ciotat</h4>
+    </figcaption>
+-->
+</figure>
+
+<h2 id="virtualbox">Virtualbox</h2>
+
+<h3 id="core-virtualbox">Core VirtualBox</h3>
+
+<h4 id="installation">Installation</h4>
+
+<p>Go under Settings/Control Panel and click on Download Plg for VirtualBox then Install.</p>
+
+<p>You will then need to go under Settings/VirtualBox and Download/Install:</p>
+
+<ul>
+<li>VirtualBox<br /></li>
+<li>VirtualBox Extension<br /></li>
+<li>VirtualBox Guest Additions</li>
+</ul>
+
+<h4 id="configuration">Configuration</h4>
+
+<p>VMs configuration will be placed under /boot/custom/vbox. If you have been running VirtualBox in the past on unRaid then you can copy back your previous vbox directory with VM configurations at the same location.</p>
+
+<p>You will also need to create the following directory for logs:
+    # mkdir /boot/config/plugins/virtualbox/</p>
+
+<p>Go under Settings/Control Panel and click on Download Plg for VirtualBox then configure:</p>
+
+<pre><code> Install VirtualBox during array mount: Yes
+ Check &amp; Update VirtualBox during array mount: No
+ Check &amp; Update Plugin during array mount: No
+ Start VMs and vboxwebsrv during array mount: Yes
+ Which Virtual Machines should be automatically started: None
+ VirtualBox symbolic link (part of install package): /boot/custom/vbox
+
+ vboxwebsrv Host IP: 127.0.0.1
+ vboxwebsrv Port: 18083
+
+ vboxwebsrv log file location (must be valid location): /boot/config/plugins/virtualbox/vboxwebsrv.log
+
+ vboxwebsrv log file &quot;--verbose&quot; mode: Yes
+ vboxwebsrv log file rotation &quot;LOGROTATE&quot; option: 0
+ vboxwebsrv log file size &quot;LOGSIZE&quot; option: 50000
+ vboxwebsrv log file interval &quot;LOGINTERVAL&quot; option: 604800
+</code></pre>
+
+<h3 id="phpvirtualbox">phpVirtualBox</h3>
+
+<h4 id="fix-and-install-webserver-plugin">Fix and install webserver plugin</h4>
+
+<p>phpVirtualBox requires a webserver to run. The one from SimpleFeatures is fine but has a small bug that can be easily fixed.</p>
+
+<p>Extract SimpleFeatures (see link above)</p>
+
+<p>Edit <em>simpleFeatures.web.server-1.0.11-noarch-1.plg</em></p>
+
+<p>Replace all occurences (there should be 3 instances) of</p>
+
+<pre><code>  sqlite-3.7.14.1-i486-1.txz
+</code></pre>
+
+<p>with</p>
+
+<pre><code>  sqlite-3.7.17-i486-1.txz
+</code></pre>
+
+<p>Replace (there should be 1 instance)</p>
+
+<pre><code> 433769b1cd27b59667a34295184356e3
+</code></pre>
+
+<p>with</p>
+
+<pre><code>  60f75216d98dc6910f74eeef232421d7
+</code></pre>
+
+<p>Copy <em>simpleFeatures.web.server-1.0.11-noarch-1.plg</em> /boot/plugins/</p>
+
+<p>Installplg /boot/plugins/simpleFeatures.web.server-1.0.11-noarch-1.plg</p>
+
+<p>Enable webserver under Settings/Web Server</p>
+
+<pre><code>  Web server function: Enabled
+  Web root directory: /boot/custom/webserver
+  Listening port: 81
+  PHP error logging: Enabled
+  Error logging: Disabled
+  Access logging: Disabled
+</code></pre>
+
+<h4 id="install-phpvirtualbox">Install phpVirtualBox</h4>
+
+<p>Download <a href="https://code.google.com/p/phpvirtualbox/downloads/list?can=1&amp;q=">phpVirtualBox</a></p>
+
+<p>Extract the file in the webserver directory (i.e /boot/custom/webserver)</p>
+
+<p>Enable default config</p>
+
+<pre><code> cp config.php-example config.php
+</code></pre>
+
+<h4 id="fix-phpvirtualbox-authentication">Fix phpvirtualbox authentication</h4>
+
+<p>I coulnd&rsquo;t get the authentication to work on phpvirtualbox. Best is to disable it because it can only be seen on your local network</p>
+
+<p>Edit /boot/custom/webserver/config.php</p>
+
+<p>Find an uncomment:</p>
+
+<pre><code>  var $noAuth = true;
+</code></pre>
+
+<h4 id="fix-soap-error-when-logging-in">Fix SOAP error when logging in</h4>
+
+<p>Edit /boot/config/simpleFeatures/php.ini and add, just below [PHP]</p>
+
+<pre><code> extension = soap.so
+</code></pre>
+
+<h4 id="virtual-host-for-multiple-webservers">Virtual host for multiple webservers</h4>
+
+<p>The following was found on unRaid forum. I&rsquo;m just posting it here for reference.</p>
+
+<p>I wanted to add &ldquo;virtual hosts&rdquo; to this so I could run the php front end to virtual box.</p>
+
+<p>I decided to run my newznab host on port 85 and my phpvbox on port 84. For those who are curious, here&rsquo;s what you add to the lighthttp.cfg in /boot/config/plugins/simplefeatures/ :</p>
+
+<p>This code sets up the &ldquo;host&rdquo; for NEWZNAB, as well as the particular URL re-writing rules that the code requires. Originally this was a global configuration, and I couldn&rsquo;t figure out why my PHPVBOX wasn&rsquo;t working! It was because the URL-rewriting was effing things up :)</p>
+
+<pre><code> # User customizations
+ # Add your own settings here. These won't get overwritten upon reboot
+ #
+ $SERVER[&quot;socket&quot;] == &quot;:85&quot; {
+ url.rewrite-once = (
+ &quot;^/.*\.(css|jpg|jpeg|gif|png|js|ico)&quot; =&gt; &quot;$0&quot;,
+ &quot;^/(admin|install).*$&quot; =&gt; &quot;$0&quot;,
+ &quot;^/([^/\.]+)/?(?:\?(.*))$&quot; =&gt; &quot;index.php?page=$1&amp;$2&quot;,
+ &quot;^/([^/\.]+)/?$&quot; =&gt; &quot;index.php?page=$1&quot;,
+ &quot;^/([^/\.]+)/([^/]+)/?(?:\?(.*))$&quot; =&gt; &quot;index.php?page=$1&amp;id=$2&amp;$3&quot;,
+ &quot;^/([^/\.]+)/([^/]+)/?$&quot; =&gt; &quot;index.php?page=$1&amp;id=$2&quot;,
+ &quot;^/([^/\.]+)/([^/]+)/([^/]+)/?$&quot; =&gt; &quot;index.php?page=$1&amp;id=$2&amp;subpage=$3&quot;
+  )
+ }
+</code></pre>
+
+<p>This code sets up the &ldquo;host&rdquo; for PHPVBOX</p>
+
+<pre><code> $SERVER[&quot;socket&quot;] == &quot;:84&quot; {
+  server.document-root = &quot;/mnt/extra/phpvbox/&quot;
+ }
+</code></pre>
+
+<p>This is just an example of how to have yet another &ldquo;host&rdquo; running on a different port. This way you can house different sites.</p>
+
+<pre><code> $SERVER[&quot;socket&quot;] == &quot;:83&quot; {
+  server.document-root = &quot;/mnt/extra/sandbox/&quot;
+ }
+</code></pre>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://danynativel.net/2013/09/26/migrating-to-unraid-5-0-release/" data-id="88563a7ead9f20aa452e9ef2ad24cfa7" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://danynativel.net/2013/09/26/migrating-to-unraid-5-0-release/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://danynativel.net/2013/06/10/emergency-commands-for-encrypted-archlinux-installations/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">Emergency commands for encrypted Archlinux installations</div>
+    </a>
+    
+
+    
+    <a href="https://danynativel.net/2013/10/21/getting-git-annex-to-run-on-unraid/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">Getting git-annex to run on unRAID</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "danynativel" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/computer">
+                    computer
+                </a>
+                <span class="category-list-count">9</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/freediving">
+                    freediving
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/photography">
+                    photography
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/archlinux">
+                    archlinux
+                </a>
+                <span class="category-list-count">6</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/hacking">
+                    hacking
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/hardware">
+                    hardware
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/how-to">
+                    how-to
+                </a>
+                <span class="category-list-count">9</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/linux">
+                    linux
+                </a>
+                <span class="category-list-count">8</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/security">
+                    security
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/tips">
+                    tips
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/unraid">
+                    unraid
+                </a>
+                <span class="category-list-count">3</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://danynativel.net/tags/archlinux" style="font-size: 12px;">archlinux</a>
+        
+        
+        <a href="https://danynativel.net/tags/hacking" style="font-size: 12px;">hacking</a>
+        
+        
+        <a href="https://danynativel.net/tags/hardware" style="font-size: 12px;">hardware</a>
+        
+        
+        <a href="https://danynativel.net/tags/how-to" style="font-size: 12px;">how-to</a>
+        
+        
+        <a href="https://danynativel.net/tags/linux" style="font-size: 12px;">linux</a>
+        
+        
+        <a href="https://danynativel.net/tags/security" style="font-size: 12px;">security</a>
+        
+        
+        <a href="https://danynativel.net/tags/tips" style="font-size: 12px;">tips</a>
+        
+        
+        <a href="https://danynativel.net/tags/unraid" style="font-size: 12px;">unraid</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://danynativel.net/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://danynativel.net/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

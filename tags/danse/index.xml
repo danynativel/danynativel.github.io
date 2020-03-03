@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Danse on Dany Nativel</title>
+    <link>https://danynativel.com/tags/danse/</link>
+    <description>Recent content in Danse on Dany Nativel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Jun 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://danynativel.com/tags/danse/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Spectacle de Danse du 24 juin 2016</title>
+      <link>https://danynativel.com/2016/06/24/spectacle-de-danse-du-24-juin-2016</link>
+      <pubDate>Fri, 24 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.com/2016/06/24/spectacle-de-danse-du-24-juin-2016</guid>
+      <description>&lt;p&gt;Spectacle de Danse du 24 juin 2016.&lt;/p&gt;
+
+&lt;figure&gt;
+    &lt;img src=&#34;https://danynativel.com/img/spectacle-danse.jpg&#34; /&gt;
+&lt;!---
+    &lt;figcaption&gt;
+        &lt;h4&gt;10ème Indoor de la Ciotat&lt;/h4&gt;
+    &lt;/figcaption&gt;
+--&gt;
+    &lt;figlink&gt;
+    &lt;a href=&#34;http://photos.danynativel.com/Albums/Gala-Danse-2016/n-vXJNpj/&#34;&gt;Lien vers la galerie photos&lt;/a&gt;
+    &lt;/figlink&gt;
+&lt;/figure&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Archlinux on Dany Nativel</title>
+    <link>https://danynativel.net/tags/archlinux/</link>
+    <description>Recent content in Archlinux on Dany Nativel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 29 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://danynativel.net/tags/archlinux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ArchLinux Installation Guide on Encrypted SSD [2017]</title>
+      <link>https://danynativel.net/2017/01/29/archlinux-installation-guide-on-encrypted-ssd-2017/</link>
+      <pubDate>Sun, 29 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2017/01/29/archlinux-installation-guide-on-encrypted-ssd-2017/</guid>
+      <description>&lt;p&gt;This tutorial will guide you for installing ArchLinux on a GPT partition while using GRUB2 on a BIOS enabled PC (see Wiki for EFI) and thus on a SSD media based upon LUKS (encryption) over LVM. It is not aimed to replace the official ArchLinux installation guide or Wiki. It is just a collection of notes gathered from the official sources. As a reminder the Installation Guide can now also be found on the USB flash drive under /root/install.txt.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ArchLinux Installation Guide on Encrypted SSD</title>
+      <link>https://danynativel.net/2015/12/20/archlinux-installation-guide-on-encrypted-ssd/</link>
+      <pubDate>Sun, 20 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2015/12/20/archlinux-installation-guide-on-encrypted-ssd/</guid>
+      <description>&lt;h2 id=&#34;warning&#34;&gt;WARNING!&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#39;https://danynativel.net/2017/01/29/archlinux-installation-guide-on-encrypted-ssd-2017/&#39;&gt;2017 version of this installation guide can be found here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This tutorial will guide you for installing ArchLinux on a GPT partition while using GRUB2 on a BIOS enabled PC (see Wiki for EFI) and thus on a SSD media based upon LUKS (encryption) over LVM. It is not aimed to replace the official ArchLinux installation guide or Wiki. It is just a collection of notes gathered from the official sources. As a reminder the Installation Guide can now also be found on the USB flash drive under /root/install.txt.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Emergency commands for encrypted Archlinux installations</title>
+      <link>https://danynativel.net/2013/06/10/emergency-commands-for-encrypted-archlinux-installations/</link>
+      <pubDate>Mon, 10 Jun 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2013/06/10/emergency-commands-for-encrypted-archlinux-installations/</guid>
+      <description>&lt;p&gt;ArchLinux is a fantastic rolling distribution but sometimes you will end up with a broken or semi-broken system that you need to fix. Getting back on tracks might sound even scarier when running a full disk encryption installation on SSD but LVM brings some nice goodies that will make your life easier. For information, I have run LUKS encryption on LVM for many years and I can tell you that it is rock solid and very robust. I have tortured it many many times, powered it off without any notice and haven&amp;rsquo;t (yet) lost a single bit of data, although there is always this half second pause after entering the initial passphrase that makes you think &amp;ldquo;&amp;hellip;is it going to be able to decrypt my drive?&amp;hellip;&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Gnome 3.8 tweaks</title>
+      <link>https://danynativel.net/2013/05/05/gnome-3-8-tweaks/</link>
+      <pubDate>Sun, 05 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2013/05/05/gnome-3-8-tweaks/</guid>
+      <description>&lt;p&gt;Gnome 3.8 brings a number of nice new changes such as support for Owncloud storage, a redesigned application launching view, enhanced search, new privacy settings, a new classic mode, improved animation rendering, a new Clocks application, heavily updated settings and many of updates to GNOME applications.&lt;/p&gt;
+
+&lt;p&gt;You can find out more about the many other improvements GNOME 3.8 in &lt;a href=&#34;https://help.gnome.org/misc/release-notes/3.8/&#34;&gt;release notes.&lt;/a&gt;
+Gnome 3.8 broke few things on my system. Here is my experience so far under ArchLinux.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Setting-up a HTPC with XBMC and ArchLinux</title>
+      <link>https://danynativel.net/2013/03/10/setting-up-a-htpc-with-xbmc-and-archlinux/</link>
+      <pubDate>Sun, 10 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2013/03/10/setting-up-a-htpc-with-xbmc-and-archlinux/</guid>
+      <description>&lt;p&gt;This tutorial will guide you through an installation of XBMC on top of ArchLinux and thus using a GPT partition and GRUB2 on a BIOS enabled PC (see Wiki for EFI).&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Clone MiFare cards using Chinesse UUID writable cards</title>
+      <link>https://danynativel.net/2012/08/09/clone-mifare-cards-using-chinesse-uuid-writable-cards/</link>
+      <pubDate>Thu, 09 Aug 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2012/08/09/clone-mifare-cards-using-chinesse-uuid-writable-cards/</guid>
+      <description>&lt;p&gt;libnfc supports UUID writable cards and even has some dedicated tools for them.&lt;/p&gt;
+
+&lt;p&gt;However it doesn&amp;rsquo;t work with some of the cards found on eBay that are even simpler to use. Sector 0 is unlocked and can be written without any additional commands. libnfc requires a small patch to get it working.&lt;/p&gt;
+
+&lt;p&gt;Following has been tested under ArchLinux with modified libnfc 1.5.1, mfoc 0.10.2 and a SCL3711 dongle.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

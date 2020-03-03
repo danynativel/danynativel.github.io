@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Apple on Dany Nativel</title>
+    <link>https://danynativel.net/tags/apple/</link>
+    <description>Recent content in Apple on Dany Nativel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 Jul 2011 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://danynativel.net/tags/apple/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>NTFS Support on Apple Mac</title>
+      <link>https://danynativel.net/2011/07/11/ntfs-support-on-apple-mac/</link>
+      <pubDate>Mon, 11 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2011/07/11/ntfs-support-on-apple-mac/</guid>
+      <description>&lt;p&gt;MacOS supports NTFS partition but only in read-only mode. There are a number of free and commercial offers that can be used to get write support.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

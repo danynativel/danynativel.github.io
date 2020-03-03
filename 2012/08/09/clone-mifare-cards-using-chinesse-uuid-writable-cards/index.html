@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Clone MiFare cards using Chinesse UUID writable cards &middot; Dany Nativel</title>
+    <meta name="generator" content="Hugo 0.40.3" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Dany Nativel">
+    
+      <meta name="description" content="">
+    
+    
+    <link rel="canonical" href="https://danynativel.net/2012/08/09/clone-mifare-cards-using-chinesse-uuid-writable-cards/"/>
+    <link rel="icon" href="https://danynativel.net/favicon.ico">
+    <link rel="apple-touch-icon" href="https://danynativel.net/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://danynativel.net/css/style.css">
+    <link rel="stylesheet" href="https://danynativel.net/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://danynativel.net/css/monokai.css">
+    <link rel="stylesheet" href="https://danynativel.net/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Clone MiFare cards using Chinesse UUID writable cards" />
+<meta property="og:description" content="libnfc supports UUID writable cards and even has some dedicated tools for them.
+
+However it doesn&rsquo;t work with some of the cards found on eBay that are even simpler to use. Sector 0 is unlocked and can be written without any additional commands. libnfc requires a small patch to get it working.
+
+Following has been tested under ArchLinux with modified libnfc 1.5.1, mfoc 0.10.2 and a SCL3711 dongle.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://danynativel.net/2012/08/09/clone-mifare-cards-using-chinesse-uuid-writable-cards/" />
+
+
+
+<meta property="article:published_time" content="2012-08-09T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2012-08-09T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Clone MiFare cards using Chinesse UUID writable cards">
+<meta itemprop="description" content="libnfc supports UUID writable cards and even has some dedicated tools for them.
+
+However it doesn&rsquo;t work with some of the cards found on eBay that are even simpler to use. Sector 0 is unlocked and can be written without any additional commands. libnfc requires a small patch to get it working.
+
+Following has been tested under ArchLinux with modified libnfc 1.5.1, mfoc 0.10.2 and a SCL3711 dongle.
+
+">
+
+
+<meta itemprop="datePublished" content="2012-08-09T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2012-08-09T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="424">
+
+
+
+<meta itemprop="keywords" content="Hacking,How-To,ArchLinux,Security," />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Clone MiFare cards using Chinesse UUID writable cards"/>
+<meta name="twitter:description" content="libnfc supports UUID writable cards and even has some dedicated tools for them.
+
+However it doesn&rsquo;t work with some of the cards found on eBay that are even simpler to use. Sector 0 is unlocked and can be written without any additional commands. libnfc requires a small patch to get it working.
+
+Following has been tested under ArchLinux with modified libnfc 1.5.1, mfoc 0.10.2 and a SCL3711 dongle.
+
+"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://danynativel.net/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://danynativel.net/img/facevase.png')"></i>
+          
+          <span class="site-title">Dany Nativel</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/">Home</a>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/categories/">Categories</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://www.danynativel.com">Street Photography</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://danynativel.net/img/dnativel.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://danynativel.net/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/">Home</a></td>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/categories/">Categories</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://www.danynativel.com">Street Photography</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://danynativel.net/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://danynativel.net/img/dnativel.png">
+      
+      <h2 id="name">Dany Nativel</h2>
+      <h3 id="title">Freediver - Photographer - Privacy &amp; FOSS advocate</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>France</span>
+      
+          <a id="follow" href="https://www.instagram.com/dany.nativel">
+              Follow
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        11
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          8
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//instagram.com/dany.nativel" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//linkedin.com/in/danynativel" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//keybase.io/danynativel" target="_blank" title="Keybase"><i class="fa fa-key"></i></a></td>
+
+
+
+<td><a href="http://www.danynativel.com/" target="_blank" title="Street Photography Official Website"><i class="fa fa-camera-retro"></i></a></td>
+
+
+
+
+
+<td><a href="mailto:dany@nativel.net" target="_blank" title="Email"><i class="fa fa-envelope"></i></a></td>
+
+
+
+
+
+
+          <td><a href="https://danynativel.net/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://danynativel.net/top/hacking.jpg" class="article-banner">
+        
+
+        <header class="article-header">
+    <a href="https://danynativel.net/2012/08/09/clone-mifare-cards-using-chinesse-uuid-writable-cards/">
+    <h1 class="article-title" itemprop="name">
+        Clone MiFare cards using Chinesse UUID writable cards
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2012-08-09 00:00:00 &#43;0000 UTC" itemprop="datePublished">2012-08-09</time>
+	    
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/categories/computer">Computer</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/hacking">Hacking</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/how-to">How-To</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/archlinux">ArchLinux</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/security">Security</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>libnfc supports UUID writable cards and even has some dedicated tools for them.</p>
+
+<p>However it doesn&rsquo;t work with some of the cards found on eBay that are even simpler to use. Sector 0 is unlocked and can be written without any additional commands. libnfc requires a small patch to get it working.</p>
+
+<p>Following has been tested under ArchLinux with modified libnfc 1.5.1, mfoc 0.10.2 and a SCL3711 dongle.</p>
+
+<p></p>
+
+<h2 id="patch-recompile-libnfc">Patch &amp; recompile libnfc</h2>
+
+<p>The patch is fairly simple, open libnfc-1.5.1/utils/nfc-mfclassic.c and comment 2 lines (it was lines 384 and 385 for me):</p>
+
+<pre><code>  // Try to write the trailer
+  if (nfc_initiator_mifare_cmd (pnd, MC_WRITE, uiBlock, &amp;mp) == false) {
+    printf (&quot;failed to write trailer block %d \n&quot;, uiBlock);
+    bFailure = true;
+  }
+} else {
+  // The first block 0x00 is read only, skip this
+// COMMENT THIS      if (uiBlock == 0 &amp;&amp; ! write_block_zero)
+// COMMENT THIS        continue;
+</code></pre>
+
+<p>Recompile and install.</p>
+
+<h2 id="connect-the-scl3711-dongle">Connect the SCL3711 dongle</h2>
+
+<p>I manually have to remove the pn533 module in order to get libnfc to work. This needs to be done everytime you re-plug the SCL3711 dongle.</p>
+
+<pre><code># sudo rmmod pn533
+</code></pre>
+
+<h2 id="dump-the-blank-chinese-card">Dump the blank Chinese card</h2>
+
+<h3 id="read-the-fresh-blank-chinese-card">Read the fresh blank chinese card</h3>
+
+<pre><code># nfc-list
+nfc-list uses libnfc 1.5.1 (r1175)
+Connected to NFC device: SCM Micro / SCL3711-NFC&amp;RW - PN533 v2.7 (0x07)
+1 ISO14443A passive target(s) found:
+ ATQA (SENS_RES): 00  04  
+   UID (NFCID1): 00  00  00  00  
+   SAK (SEL_RES): 08  
+</code></pre>
+
+<h3 id="dump-the-blank-chinese-card-card-to-get-the-keys">Dump the blank chinese card card to get the keys</h3>
+
+<pre><code># mfoc -P 500 -O blank-chinese.dmp
+</code></pre>
+
+<p>Now remove the chinese card and put the card you want to copy and dump it</p>
+
+<h2 id="dump-the-mifare-card-your-want-to-copy">Dump the Mifare card your want to copy</h2>
+
+<h3 id="let-s-read-the-card-to-clone-first">Let&rsquo;s read the card to clone first</h3>
+
+<pre><code># nfc-list
+nfc-list uses libnfc 1.5.1 (r1175)
+Connected to NFC device: SCM Micro / SCL3711-NFC&amp;RW - PN533 v2.7 (0x07)
+1 ISO14443A passive target(s) found:
+ATQA (SENS_RES): 00  04  
+    UID (NFCID1): 9b  97  4f  19  
+    SAK (SEL_RES): 08  
+</code></pre>
+
+<h3 id="time-to-dump-the-target-card">Time to dump the target card</h3>
+
+<pre><code># mfoc -P 500 -O cardtocopy.dmp
+</code></pre>
+
+<p>Put the chinese card back and clone the card</p>
+
+<h2 id="write-the-chinese-card-with-the-content-of-the-other-card-including-uuid">Write the Chinese card with the content of the other card including UUID</h2>
+
+<pre><code># nfc-mfclassic w b cardtocopy.dmp blank-chinese.dmp
+</code></pre>
+
+<p>or</p>
+
+<pre><code># nfc-mfclassic w a cardtocopy.dmp blank-chinese.dmp
+</code></pre>
+
+<h2 id="check-that-the-card-is-the-same">Check that the card is the same:</h2>
+
+<pre><code># nfc-list
+nfc-list uses libnfc 1.5.1 (r1175)
+Connected to NFC device: SCM Micro / SCL3711-NFC&amp;RW - PN533 v2.7 (0x07)
+1 ISO14443A passive target(s) found:
+  ATQA (SENS_RES): 00  04  
+   UID (NFCID1): 9b  97  4f  19  
+   SAK (SEL_RES): 08  
+</code></pre>
+
+<h2 id="go-back-to-blank-card">Go back to blank card</h2>
+
+<pre><code># nfc-mfclassic w b blank-chinese.dmp cardtocopy.dmp
+</code></pre>
+
+<p>or</p>
+
+<pre><code># nfc-mfclassic w a blank-chinese.dmp cardtocopy.dmp
+</code></pre>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://danynativel.net/2012/08/09/clone-mifare-cards-using-chinesse-uuid-writable-cards/" data-id="d168ff1ec7c474eeded00bf43341f43f" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://danynativel.net/2012/08/09/clone-mifare-cards-using-chinesse-uuid-writable-cards/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+
+    
+    <a href="https://danynativel.net/2013/03/10/setting-up-a-htpc-with-xbmc-and-archlinux/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">Setting-up a HTPC with XBMC and ArchLinux</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "danynativel" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/computer">
+                    computer
+                </a>
+                <span class="category-list-count">9</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/freediving">
+                    freediving
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/photography">
+                    photography
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/archlinux">
+                    archlinux
+                </a>
+                <span class="category-list-count">6</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/hacking">
+                    hacking
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/hardware">
+                    hardware
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/how-to">
+                    how-to
+                </a>
+                <span class="category-list-count">9</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/linux">
+                    linux
+                </a>
+                <span class="category-list-count">8</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/security">
+                    security
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/tips">
+                    tips
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/unraid">
+                    unraid
+                </a>
+                <span class="category-list-count">3</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://danynativel.net/tags/archlinux" style="font-size: 12px;">archlinux</a>
+        
+        
+        <a href="https://danynativel.net/tags/hacking" style="font-size: 12px;">hacking</a>
+        
+        
+        <a href="https://danynativel.net/tags/hardware" style="font-size: 12px;">hardware</a>
+        
+        
+        <a href="https://danynativel.net/tags/how-to" style="font-size: 12px;">how-to</a>
+        
+        
+        <a href="https://danynativel.net/tags/linux" style="font-size: 12px;">linux</a>
+        
+        
+        <a href="https://danynativel.net/tags/security" style="font-size: 12px;">security</a>
+        
+        
+        <a href="https://danynativel.net/tags/tips" style="font-size: 12px;">tips</a>
+        
+        
+        <a href="https://danynativel.net/tags/unraid" style="font-size: 12px;">unraid</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://danynativel.net/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://danynativel.net/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Distributed Encrypted Backup across unRaid machines &middot; Dany Nativel</title>
+    <meta name="generator" content="Hugo 0.40.3" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Dany Nativel">
+    
+      <meta name="description" content="">
+    
+    
+    <link rel="canonical" href="https://danynativel.net/2012/01/03/distributed-encrypted-backup-across-unraid-machines/"/>
+    <link rel="icon" href="https://danynativel.net/favicon.ico">
+    <link rel="apple-touch-icon" href="https://danynativel.net/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://danynativel.net/css/style.css">
+    <link rel="stylesheet" href="https://danynativel.net/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://danynativel.net/css/monokai.css">
+    <link rel="stylesheet" href="https://danynativel.net/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Distributed Encrypted Backup across unRaid machines" />
+<meta property="og:description" content="The following tutorial will guide you through the required steps to install a fully distributed and encrypted backup across two unRaid machines. The idea is to use some of your friend&rsquo;s unRaid storage for storing your encrypted data and vice versa.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://danynativel.net/2012/01/03/distributed-encrypted-backup-across-unraid-machines/" />
+
+
+
+<meta property="article:published_time" content="2012-01-03T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2012-01-03T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Distributed Encrypted Backup across unRaid machines">
+<meta itemprop="description" content="The following tutorial will guide you through the required steps to install a fully distributed and encrypted backup across two unRaid machines. The idea is to use some of your friend&rsquo;s unRaid storage for storing your encrypted data and vice versa.
+
+">
+
+
+<meta itemprop="datePublished" content="2012-01-03T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2012-01-03T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3573">
+
+
+
+<meta itemprop="keywords" content="Linux,How-To,unRaid," />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Distributed Encrypted Backup across unRaid machines"/>
+<meta name="twitter:description" content="The following tutorial will guide you through the required steps to install a fully distributed and encrypted backup across two unRaid machines. The idea is to use some of your friend&rsquo;s unRaid storage for storing your encrypted data and vice versa.
+
+"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://danynativel.net/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://danynativel.net/img/facevase.png')"></i>
+          
+          <span class="site-title">Dany Nativel</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/">Home</a>
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/categories/">Categories</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://danynativel.net/img/dnativel.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://danynativel.net/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/">Home</a></td>
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/categories/">Categories</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://danynativel.net/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://danynativel.net/img/dnativel.png">
+      
+      <h2 id="name">Dany Nativel</h2>
+      <h3 id="title">Freediver - Photographer - Privacy &amp; FOSS advocate</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>France</span>
+      
+          <a id="follow" href="https://www.instagram.com/dany.nativel">
+              Follow
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        22
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          16
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//instagram.com/dany.nativel" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//linkedin.com/in/danynativel" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//keybase.io/danynativel" target="_blank" title="Keybase"><i class="fa fa-key"></i></a></td>
+
+
+
+<td><a href="http://www.danynativel.com/" target="_blank" title="Street Photo"><i class="fa fa-picture-o"></i></a></td>
+
+
+
+<td><a href="https://eyeem.com/u/danynativel" target="_blank" title="Eyeem - Alternative to Instagram"><i class="fa fa-camera-retro"></i></a></td>
+
+
+
+<td><a href="mailto:dany@nativel.net" target="_blank" title="Email"><i class="fa fa-envelope"></i></a></td>
+
+
+
+
+
+
+          <td><a href="https://danynativel.net/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://danynativel.net/top/raid-and-server.jpg" class="article-banner">
+        
+
+        <header class="article-header">
+    <a href="https://danynativel.net/2012/01/03/distributed-encrypted-backup-across-unraid-machines/">
+    <h1 class="article-title" itemprop="name">
+        Distributed Encrypted Backup across unRaid machines
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2012-01-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">2012-01-03</time>
+	    
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/categories/computer">Computer</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/linux">Linux</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/how-to">How-To</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/unraid">unRaid</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>The following tutorial will guide you through the required steps to install a fully distributed and encrypted backup across two unRaid machines. The idea is to use some of your friend&rsquo;s unRaid storage for storing your encrypted data and vice versa.</p>
+
+<p></p>
+
+<p>Do the following via Telnet. Once the SSH configuration described bellow is applied you won&rsquo;t be able to login as root or with passwords. This can be (temporarily) overridden by modifying /etc/ssh/sshd_config and restarting SSH server.
+We will be usinb Bob and Alice users for configuring your backups. Alice is the local user on your server and Bob is the name of the user owning the remote server.</p>
+
+<h2 id="introduction-to-duplicity">Introduction to Duplicity</h2>
+
+<p><a href="http://duplicity.nongnu.org/">http://duplicity.nongnu.org/</a>
+Duplicity backs directories by producing encrypted tar-format volumes and uploading them to a remote or local file server. Because duplicity uses librsync, the incremental archives are space efficient and only record the parts of files that have changed since the last backup. Because duplicity uses GnuPG to encrypt and/or sign these archives, they will be safe from spying and/or modification by the server.</p>
+
+<h2 id="introduction-to-openssh-chroot-mode">Introduction to OpenSSH Chroot mode</h2>
+
+<p><a href="http://www.debian-administration.org/articles/590">http://www.debian-administration.org/articles/590</a></p>
+
+<h2 id="preparing-usb-flash-drive">Preparing USB Flash drive</h2>
+
+<p>If you use a Windows machine to write your configuration files please make sure to convert/save them to UNIX mode.</p>
+
+<pre><code># mkdir /boot/packages
+# mkdir /boot/config/myconfig
+# mkdir /boot/config/myconfig/ssh
+# mkdir /boot/config/myconfig/gnupg
+</code></pre>
+
+<h2 id="setting-up-chroot-sftp">Setting up Chroot SFTP</h2>
+
+<h3 id="download-and-copy-packages">Download and copy packages</h3>
+
+<p>The following packages are coming from Slackware-current and not 12.2. Considering that the SSH server will be connected to the Internet I think it&rsquo;s a good thing to run the latest version.</p>
+
+<pre><code># wget ftp://slackware.osuosl.org/pub/slackware/slackware-current/slackware/n/openssh-5.8p1-i486-1.txz /boot/packages
+</code></pre>
+
+<h3 id="setup-global-storage-space-for-remote-backups">Setup global storage space for remote backups</h3>
+
+<ul>
+<li>Using unraid web interface, add a user share called &ldquo;remote-backup&rdquo;</li>
+<li>Defines which drive(s) is(are) included.</li>
+<li>Disable SMB and NFS mouting</li>
+<li>Set split level to 999 for splitting all files across the disks</li>
+</ul>
+
+<h3 id="setup-alice-s-storage-space-on-bob-s-machine">Setup Alice&rsquo;s storage space on Bob&rsquo;s machine</h3>
+
+<pre><code># mkdir /mnt/user/remote-backup/alice
+# chmod 700 /mnt/share/remote-backup/alice
+</code></pre>
+
+<h3 id="generate-host-s-ssh-keys">Generate host&rsquo;s SSH keys</h3>
+
+<p>In order to generate the key you need to start SSH server once. Therefore we need to install it first (it will be automatically re-installed upon boot via a script found below).</p>
+
+<pre><code># installpkg /boot/packages/openssh-5.8p1-i486-1.txz
+</code></pre>
+
+<p>You should now see the following files under /etc/ssh/
+  * moduli
+  * ssh_config
+  * sshd_config</p>
+
+<p>Now let&rsquo;s start the server in order to generate initial host keys:</p>
+
+<pre><code># /etc/rc.d/rc.sshd start
+</code></pre>
+
+<p>Your /etc/ssh should now look like this:
+  * moduli
+  * ssh_config
+  * ssh_host_dsa_key
+  * ssh_host_dsa_key.pub
+  * ssh_host_key
+  * ssh_host_key.pub
+  * ssh_host_rsa_key
+  * ssh_host_rsa_key.pub
+  * sshd_config</p>
+
+<p>We can now copy the keys to the flash drive using:</p>
+
+<pre><code>cp /etc/ssh/ssh_host* /boot/config/myconfig/ssh
+</code></pre>
+
+<p>At this point we can shutdonw the ssh server:</p>
+
+<pre><code>/etc/rc.d/rc.sshd stop
+</code></pre>
+
+<h3 id="generate-bob-s-ssh-key-for-accessing-his-account-on-alice-s-machine">Generate Bob&rsquo;s SSH key for accessing his account on Alice&rsquo;s machine</h3>
+
+<pre><code>ssh-keygen -t rsa -b 4096 -f /boot/config/myconfig/ssh/id-bob_rsa
+</code></pre>
+
+<p>PRESS ENTER TWICE WHEN YOU ARE PROMPTED FOR PASSWORD! We don&rsquo;t need to set one as we want passwordless backups.</p>
+
+<p>You should see two new files under /boot/config/myconfig/ssh/
+  * id-bob_rsa (the private key)
+  * id-bob_rsa.pub (the public key)</p>
+
+<h3 id="send-bob-s-public-key-to-alice-and-receive-alice-s-key">Send Bob&rsquo;s public key to Alice and receive Alice&rsquo;s key</h3>
+
+<p>Send the file id-bob_rsa.pub (and only that one) via email or any other link. In the meantime ask Alice to send you her public key.</p>
+
+<p>When you receive it (let&rsquo;s say you saved it under /root) save it to the flash drive as we will install it upon boot.</p>
+
+<pre><code>cp /root/id-alice_rsa.pub /boot/config/myconfig/ssh/
+</code></pre>
+
+<p>We will fix permissions and ownership of the files under .ssh upon reboot.</p>
+
+<h3 id="create-ssh-server-config">Create SSH server config</h3>
+
+<p>OpenSSH is very picky about permissions and ownerships. It gets even worse when you enable chroot mode.
+Typically the files authorized_keys and id_rsa need to have 600 permissions. For chroot the entire path needs to be owned exclusively by root which prevents it from being used as a user share. Symbolink links don&rsquo;t work in that case and the only way I found was to use the &ldquo;mount &ndash;bind&rdquo; command that allows to re-mount a subset of a filesystem. When doing that we will need to add special instructions in the shutdown script in order to unmount this directory as well (looks like it is note required).</p>
+
+<p>The important section in your sshd config to run chroot environment is:</p>
+
+<pre><code># override default of no subsystems
+# Subsystem       sftp    /usr/libexec/sftp-server
+Subsystem sftp internal-sftp
+
+Match Group sftponly
+        ChrootDirectory %h
+        ForceCommand internal-sftp
+        AllowTcpForwarding no
+</code></pre>
+
+<p>When you edit the default sshd_config you will find a &ldquo;Subsystem sftp&rdquo; command already. This one won&rsquo;t work and needs to be replaced by  &ldquo;Subsystem sftp    internal-sftp&rdquo;</p>
+
+<p>Below is the sshd config file I&rsquo;m recommending for this distributed backup. I&rsquo;ve added the following restrictions:
+   * SSH2 only
+   * No root login (telnet can be used when connected over the LAN or use public key authentication for root as well.)
+   * No password login (even if remote user must have a password they won&rsquo;t be able to use it)
+   * Grace time set to 30s
+   * Strict mode enforced for checking permissions of keys
+   * No Banner
+   * Disabled port, gateway and X11 fowarding</p>
+
+<p>You can use the file below or modify the one already existing under /etc/ssh/sshd_config</p>
+
+<p>{% codeblock /etc/ssh/sshd_config lang:bash %}</p>
+
+<h1 id="openbsd-sshd-config-v-1-80-2008-07-02-02-24-18-djm-exp">$OpenBSD: sshd_config,v 1.80 2008/07/02 02:24:18 djm Exp $</h1>
+
+<p>Port 22
+#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::</p>
+
+<h1 id="disable-legacy-protocol-version-1-support-in-the-server-for-new">Disable legacy (protocol version 1) support in the server for new</h1>
+
+<h1 id="installations-in-future-the-default-will-change-to-require-explicit">installations. In future the default will change to require explicit</h1>
+
+<h1 id="activation-of-protocol-1">activation of protocol 1</h1>
+
+<p>Protocol 2</p>
+
+<p>#HostKey for protocol version 1
+#HostKey /etc/ssh/ssh_host_key
+#HostKeys for protocol version 2
+#HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_dsa_key</p>
+
+<h1 id="lifetime-and-size-of-ephemeral-version-1-server-key">Lifetime and size of ephemeral version 1 server key</h1>
+
+<p>#KeyRegenerationInterval 1h
+#ServerKeyBits 1024</p>
+
+<h1 id="logging">Logging</h1>
+
+<h1 id="obsoletes-quietmode-and-fascistlogging">obsoletes QuietMode and FascistLogging</h1>
+
+<p>#SyslogFacility AUTH
+#LogLevel INFO</p>
+
+<h1 id="authentication">Authentication:</h1>
+
+<p>LoginGraceTime 30
+PermitRootLogin yes</p>
+
+<h1 id="make-sure-permissions-are-correctly-set-for-ssh-keys">Make sure permissions are correctly set for ssh keys</h1>
+
+<p>StrictModes yes</p>
+
+<p>MaxAuthTries 3
+#MaxSessions 10</p>
+
+<p>RSAAuthentication yes
+PubkeyAuthentication yes
+#AuthorizedKeysFile .ssh/authorized_keys</p>
+
+<h1 id="for-this-to-work-you-will-also-need-host-keys-in-etc-ssh-ssh-known-hosts">For this to work you will also need host keys in /etc/ssh/ssh_known_hosts</h1>
+
+<p>#RhostsRSAAuthentication no</p>
+
+<h1 id="similar-for-protocol-version-2">similar for protocol version 2</h1>
+
+<p>#HostbasedAuthentication no</p>
+
+<h1 id="change-to-yes-if-you-don-t-trust-ssh-known-hosts-for">Change to yes if you don&rsquo;t trust ~/.ssh/known_hosts for</h1>
+
+<h1 id="rhostsrsaauthentication-and-hostbasedauthentication">RhostsRSAAuthentication and HostbasedAuthentication</h1>
+
+<p>#IgnoreUserKnownHosts no</p>
+
+<h1 id="don-t-read-the-user-s-rhosts-and-shosts-files">Don&rsquo;t read the user&rsquo;s ~/.rhosts and ~/.shosts files</h1>
+
+<p>#IgnoreRhosts yes</p>
+
+<h1 id="to-disable-tunneled-clear-text-passwords-change-to-no-here">To disable tunneled clear text passwords, change to no here!</h1>
+
+<p>PasswordAuthentication no
+PermitEmptyPasswords no</p>
+
+<h1 id="change-to-no-to-disable-s-key-passwords">Change to no to disable s/key passwords</h1>
+
+<p>ChallengeResponseAuthentication no</p>
+
+<h1 id="kerberos-options">Kerberos options</h1>
+
+<p>#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#KerberosGetAFSToken no</p>
+
+<h1 id="gssapi-options">GSSAPI options</h1>
+
+<p>#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes</p>
+
+<h1 id="set-this-to-yes-to-enable-pam-authentication-account-processing">Set this to &lsquo;yes&rsquo; to enable PAM authentication, account processing,</h1>
+
+<h1 id="and-session-processing-if-this-is-enabled-pam-authentication-will">and session processing. If this is enabled, PAM authentication will</h1>
+
+<h1 id="be-allowed-through-the-challengeresponseauthentication-and">be allowed through the ChallengeResponseAuthentication and</h1>
+
+<h1 id="passwordauthentication-depending-on-your-pam-configuration">PasswordAuthentication.  Depending on your PAM configuration,</h1>
+
+<h1 id="pam-authentication-via-challengeresponseauthentication-may-bypass">PAM authentication via ChallengeResponseAuthentication may bypass</h1>
+
+<h1 id="the-setting-of-permitrootlogin-without-password">the setting of &ldquo;PermitRootLogin without-password&rdquo;.</h1>
+
+<h1 id="if-you-just-want-the-pam-account-and-session-checks-to-run-without">If you just want the PAM account and session checks to run without</h1>
+
+<h1 id="pam-authentication-then-enable-this-but-set-passwordauthentication">PAM authentication, then enable this but set PasswordAuthentication</h1>
+
+<h1 id="and-challengeresponseauthentication-to-no">and ChallengeResponseAuthentication to &lsquo;no&rsquo;.</h1>
+
+<p>#UsePAM no</p>
+
+<p>AllowAgentForwarding no
+AllowTcpForwarding no
+GatewayPorts no
+X11Forwarding no</p>
+
+<p>#X11DisplayOffset 10
+#X11UseLocalhost yes
+#PrintMotd yes
+#PrintLastLog yes
+#TCPKeepAlive yes
+#UseLogin no
+#UsePrivilegeSeparation yes
+#PermitUserEnvironment no
+#Compression delayed
+#ClientAliveInterval 0
+#ClientAliveCountMax 3
+#UseDNS yes
+#PidFile /var/run/sshd.pid
+#MaxStartups 10
+#PermitTunnel no
+#ChrootDirectory none</p>
+
+<h1 id="no-default-banner-path">no default banner path</h1>
+
+<p>#Banner none
+Banner none</p>
+
+<h1 id="override-default-of-no-subsystems">override default of no subsystems</h1>
+
+<p>#Subsystem  sftp    /usr/libexec/sftp-server
+Subsystem   sftp    internal-sftp</p>
+
+<p>Match Group sftponly
+    ChrootDirectory %h
+    ForceCommand internal-sftp
+    AllowTcpForwarding no
+{% endcodeblock %}</p>
+
+<p>Then you can copy this file as well as the default ssh client config to your flashdrive:</p>
+
+<pre><code># cp /etc/ssh/ssh_config /boot/config/myconfig/ssh
+# cp /etc/ssh/sshd_config /boot/config/myconfig/ssh
+</code></pre>
+
+<p>Let&rsquo;s stop the SSH server for now.</p>
+
+<pre><code>/etc/rc.d/rc.sshd stop
+</code></pre>
+
+<h3 id="install-chroot-sftp-startup-script">Install Chroot SFTP startup script</h3>
+
+<p>Modify and save the following file on your flash drive.</p>
+
+<p>{% codeblock /boot/config/myconfig/chroot-sftp-setup.sh lang:bash %}</p>
+
+<p>#!/bin/sh</p>
+
+<p>#################################################################</p>
+
+<h1 id="modify-the-following-variables-according-to-your-installation">MODIFY THE FOLLOWING VARIABLES ACCORDING TO YOUR INSTALLATION</h1>
+
+<p>#################################################################</p>
+
+<p>#Location of your binary packages on the USB Flash drive
+PKG_DIR=/boot/packages</p>
+
+<p>#Location of your custom scripts and config files on the USB Flash drive
+#This scrip expects to find the following directoy within this one:</p>
+
+<h1 id="ssh">./ssh</h1>
+
+<p>CUSTOM_CONFIG_DIR=/boot/config/myconfig</p>
+
+<h1 id="this-is-the-remote-user-that-will-have-access-to-a-chroot-dir-you-normally-only-have-his-public-key">This is the remote user that will have access to a chroot dir. You normally only have his public key</h1>
+
+<h1 id="you-need-to-have-the-following-files-under-custom-config-dir-ssh-let-s-assumer-remote-user-alice-and-local-user-bob">You need to have the following files under CUSTOM_CONFIG_DIR/ssh (let&rsquo;s assumer REMOTE_USER=alice and LOCAL_USER=bob):</h1>
+
+<p>REMOTE_USER=alice</p>
+
+<h1 id="this-is-the-user-connecting-to-a-remote-server">This is the user connecting to a remote server</h1>
+
+<p>LOCAL_USER=bob</p>
+
+<h1 id="location-of-the-chroot-directory-will-be-created-upon-reboot">Location of the chroot directory (will be created upon reboot)</h1>
+
+<p>CHROOT_DIR=/sftp-chroot</p>
+
+<h1 id="directory-under-your-unraid-user-share-that-will-host-all-the-remote-user-s-backups">Directory under your unRAID user share that will host all the remote user&rsquo;s backups</h1>
+
+<p>UNRAID_BACKUP_DIR=/mnt/user/remote-backup</p>
+
+<h1 id="name-of-the-writable-directory-under-the-chroot-directory-of-the-remote-user">Name of the writable directory under the chroot directory of the remote user</h1>
+
+<p>REMOTE_USER_WRITABLE=myremotespace</p>
+
+<p>#If you change the following group you need modify sshd_config accordingly
+SFTPONLY_GROUP=sftponly</p>
+
+<h1 id="expected-files">Expected files:</h1>
+
+<h1 id="custom-config-dir-ssh">CUSTOM_CONFIG_DIR/ssh/</h1>
+
+<h1 id="id-bob-rsa">- id_bob_rsa</h1>
+
+<h1 id="id-bob-rsa-pub">- id_bob_rsa.pub</h1>
+
+<h1 id="id-alice-rsa-pub">- id_alice_rsa.pub</h1>
+
+<h1 id="sshd-config">- sshd_config</h1>
+
+<h1 id="ssh-config">- ssh_config</h1>
+
+<h1 id="ssh-host-dsa-key">- ssh_host_dsa_key</h1>
+
+<h1 id="ssh-host-dsa-key-pub">- ssh_host_dsa_key.pub</h1>
+
+<h1 id="ssh-host-key">- ssh_host_key</h1>
+
+<h1 id="ssh-host-key-pub">- ssh_host_key.pub</h1>
+
+<h1 id="ssh-host-rsa-key">- ssh_host_rsa_key</h1>
+
+<h1 id="ssh-host-rsa-key-pub">- ssh_host_rsa_key.pub</h1>
+
+<h1 id="knwon-hosts">- knwon_hosts????</h1>
+
+<h1 id="optional-id-root-rsa-pub">- Optional: id_root_rsa.pub</h1>
+
+<p>##################################################################################</p>
+
+<h1 id="installation-setup-starts-here-no-need-to-modify-anything-beyond-this-point">Installation &amp; setup starts here, no need to modify anything beyond this point</h1>
+
+<p>##################################################################################</p>
+
+<p>#########################</p>
+
+<h1 id="chrooted-sftp-setup">CHROOTED SFTP SETUP</h1>
+
+<p>#########################</p>
+
+<p>#Package installation
+installpkg $PKG_DIR/openssh-5.8p1-i486-1.txz</p>
+
+<p>#Add remote user
+groupadd $SFTPONLY_GROUP
+useradd -g $SFTPONLY_GROUP -s /bin/false -d $CHROOT_DIR/$REMOTE_USER -p &lsquo;2234ZERZERZLREZOERZERZER&rsquo; $REMOTE_USER</p>
+
+<p>mkdir -p $CHROOT_DIR/$REMOTE_USER/.ssh
+mkdir $CHROOT_DIR/$REMOTE_USER/$REMOTE_USER_WRITABLE
+mkdir /root/.ssh</p>
+
+<p>mount &ndash;bind $UNRAID_BACKUP_DIR/$REMOTE_USER $CHROOT_DIR/$REMOTE_USER/$REMOTE_USER_WRITABLE</p>
+
+<p>cp &ndash;preserve=timestamps $CUSTOM_CONFIG_DIR/ssh/ssh* /etc/ssh/
+cp &ndash;preserve=timestamps $CUSTOM_CONFIG_DIR/ssh/&ldquo;id-&rdquo;$LOCAL_USER&rdquo;_rsa&rdquo; /root/.ssh/id_rsa
+cp &ndash;preserve=timestamps $CUSTOM_CONFIG_DIR/ssh/&ldquo;id-&rdquo;$LOCAL_USER&rdquo;_rsa.pub&rdquo; /root/.ssh/id_rsa.pub
+cp &ndash;preserve=timestamps $CUSTOM_CONFIG_DIR/ssh/&ldquo;id-&rdquo;$REMOTE_USER&rdquo;_rsa.pub&rdquo; $CHROOT_DIR/$REMOTE_USER/.ssh/authorized_keys
+#TODO cp knwon_host back from usb flash drive as well</p>
+
+<h1 id="following-is-because-i-have-enabled-root-login-via-public-keys">Following is because I have enabled root login via public keys</h1>
+
+<p>cp &ndash;preserve=timestamps $CUSTOM_CONFIG_DIR/ssh/id-root-babylon_rsa.pub /root/.ssh/authorized_keys</p>
+
+<p>chown root:root $CHROOT_DIR $CHROOT_DIR/$REMOTE_USER
+chown $REMOTE_USER:$SFTPONLY_GROUP $CHROOT_DIR/$REMOTE_USER/.ssh $CHROOT_DIR/$REMOTE_USER/.ssh/* $CHROOT_DIR/$REMOTE_USER/$REMOTE_USER_WRITABLE
+chmod 755 $CHROOT_DIR $CHROOT_DIR/$REMOTE_USER $CHROOT_DIR/$REMOTE_USER/.ssh
+chmod 600 /etc/ssh/ssh* /root/.ssh/* $CHROOT_DIR/$REMOTE_USER/.ssh/*</p>
+
+<h1 id="what-about-knwon-hosts">What about knwon-hosts?</h1>
+
+<p>/etc/rc.d/rc.sshd start</p>
+
+<p>{% endcodeblock %}</p>
+
+<h2 id="time-to-test">Time to test</h2>
+
+<h3 id="locally">Locally</h3>
+
+<p>Let&rsquo;s start the ssh server first.</p>
+
+<pre><code>/etc/rc.d/rc.sshd start
+</code></pre>
+
+<p>Now make our root user to become alice.</p>
+
+<pre><code># cp /root/.ssh/id_rsa.pub /sftp-chroot/alice/.ssh/authorized_keys
+# chown alice:sftponly /sftp-chroot/alice/.ssh/authorized_keys
+</code></pre>
+
+<p>Now you should be able to chroot-sftp to yourself using Alice&rsquo;s identity:</p>
+
+<pre><code># sftp alice@localhost
+</code></pre>
+
+<p>Then you can do use regular command to navigate through the share and upload/download files.</p>
+
+<p>You cannot write under the root of the share but only under /myremotespace.</p>
+
+<p>If you try to simply ssh rather than sftp you will get:</p>
+
+<pre><code># ssh alice@localhost
+This service allows sftp connections only.
+Connection to localhost closed.
+</code></pre>
+
+<h3 id="remotely">Remotely</h3>
+
+<p>You can do the same test over a remote connection. You will probably need to open/redirect a port on your firewall though.</p>
+
+<h2 id="installing-duplicity">Installing Duplicity</h2>
+
+<p>Now let&rsquo;s move to the second piece of software that will take care of the encrypted backup.</p>
+
+<h4 id="create-dedicated-cache-temp-directory">Create dedicated cache &amp; temp directory</h4>
+
+<p>Duplicity uses a folder that holds unencrypted meta data of the backup, enabling new incrementals without the need to decrypt backend metadata first. If empty or deleted somehow, the private key and it&rsquo;s password are needed.
+It can grow quite big over time.
+Furthermore, Duplicity needs temporary file space. at least the size of the biggest file in backup for a successful restoration process.
+Best is to create a dedicated share on on unRAID server</p>
+
+<ul>
+<li>Using unraid web interface, add a user share called &ldquo;duplicity-cache_tmp&rdquo;</li>
+<li>Defines which drive(s) is(are) included.</li>
+<li>Disable SMB and NFS mouting</li>
+<li>Set split level to 999 for splitting all files across the disks</li>
+</ul>
+
+<p>Now create the two folders that will contain the cache and tmp dirs:</p>
+
+<pre><code>mkdir /mnt/user/duplicity-cache_tmp/tmp
+mkdir /mnt/user/duplicity-cache_tmp/.cache
+</code></pre>
+
+<h4 id="duplicity">Duplicity</h4>
+
+<p>Compiling duplicity yourself is a fairly simple task to do on a bare Slackware installation. I used a VirtualBox VM for that purpose.</p>
+
+<p>Duplicity requirements:
+  * Python v2.3 or later (<a href="http://www.python.org">http://www.python.org</a>)
+  * librsync v0.9.6 or later (<a href="http://librsync.sourceforge.net">http://librsync.sourceforge.net</a>)
+  * GnuPG for encryption (<a href="http://www.gnupg.org">http://www.gnupg.org</a>)
+  * NcFTP version 3.1.9 or later, but not 3.2.0 (<a href="http://www.ncftp.com">http://www.ncftp.com</a>)
+  * Boto 0.9d or later (<a href="http://code.google.com/p/boto">http://code.google.com/p/boto</a>)</p>
+
+<p>Here is the latest duplicity-0.6.17 that I compiled myself</p>
+
+<pre><code># wget http://natzo.com/packages/duplicity-0.6.17-i686-1.txz -P /boot/packages
+</code></pre>
+
+<p>You can also prefer to stay with the old duplicity-0.6.05 binary package found here:  <a href="http://repository.slacky.eu/slackware-13.0/system/duplicity/0.6.05/">http://repository.slacky.eu/slackware-13.0/system/duplicity/0.6.05/</a></p>
+
+<h3 id="download-and-copy-dependencies">Download and copy dependencies</h3>
+
+<p>The following packages are coming from Slackware-current and not 12.2. Considering that the SSH server will be connected to the Internet I think it&rsquo;s a good thing to run the latest version.</p>
+
+<pre><code># wget ftp://slackware.osuosl.org/pub/slackware/slackware-current/slackware/d/python-2.6.6-i486-1.txz /boot/packages
+# wget ftp://slackware.osuosl.org/pub/slackware/slackware-current/slackware/n/gnupg-1.4.10-i486-1.txz /boot/packages
+# wget ftp://slackware.osuosl.org/pub/slackware/slackware-current/slackware/n/ncftp-3.2.5-i486-1.txz /boot/packages
+# wget http://repository.slacky.eu/slackware-13.0/libraries/librsync/0.9.7/librsync-0.9.7-i486-4as.txz /boot/packages
+# wget http://boto.googlecode.com/files/boto-1.9b.tar.gz /boot/packages
+</code></pre>
+
+<h3 id="download-and-copy-duply">Download and copy duply</h3>
+
+<p>duply <a href="http://duply.net/">http://duply.net/</a> deals as a wrapper for the mighty duplicity magic. It simplifies running duplicity with cron or on command line by:
+  * keeping recurring settings in profiles per backup job
+  * enabling batch operations eg. backup_verify_purge
+  * executing pre/post scripts
+  * precondition checking for flawless duplicity operation</p>
+
+<pre><code>wget http://sourceforge.net/projects/ftplicity/files/duply%20%28simple%20duplicity%29/1.5.x/duply_1.5.5.4.tgz/download -P /boot/packages
+</code></pre>
+
+<h3 id="generate-bob-s-dedicated-encryption-key">Generate Bob&rsquo;s dedicated encryption key</h3>
+
+<p>Recent duply release introduced a nice new feature that was supposed to enabled dual-key support, one for encryption and one for signature. The idea was to remove the private key material of the encryption key from the unRAID sever that backs up its data to a remote server (not required for encrypting/signing). That should have worked as duplicity stores a local copy of the metadata required for comparing files to upload. This feature is not supported as of today even if a bug in duplicity makes you think it works!</p>
+
+<h4 id="first-we-need-to-install-gnupg">First we need to install GnuPG.</h4>
+
+<pre><code># installpkg /boot/packages/gnupg-1.4.10-i486-1.txz
+</code></pre>
+
+<p>Let&rsquo;s start GnuPG once so it creates its default fileset.</p>
+
+<pre><code>gpg --list-keys
+</code></pre>
+
+<p>You should see:</p>
+
+<pre><code>gpg: directory `/root/.gnupg' created
+gpg: new configuration file `/root/.gnupg/gpg.conf' created
+gpg: WARNING: options in `/root/.gnupg/gpg.conf' are not yet active during this run
+gpg: keyring `/root/.gnupg/pubring.gpg' created
+gpg: /root/.gnupg/trustdb.gpg: trustdb created
+</code></pre>
+
+<p>Then let&rsquo;s change the default GnuPG settings by replacing the default config by the following one in order to change default hash and encryption algortihms:</p>
+
+<p>{% codeblock /root/.gnupg/gpg.conf lang:bash %}
+no-emit-version
+digest-algo   SHA512
+cert-digest-algo SHA512
+personal-cipher-preferences AES256 AES192 AES TWOFISH BLOWFISH CAST5 3DES
+personal-digest-preferences SHA512 SHA384 SHA256 RIPEMD160 SHA1
+personal-compress-preferences ZLIB BZIP2 ZIP Z0
+default-preference-list SHA512 SHA384 SHA256 SHA224 RIPEMD160 SHA1 AES256 AES192 AES TWOFISH BLOWFISH CAST5 3DES ZLIB BZIP2 ZIP Uncompressed
+no-greeting
+use-agent
+{% endcodeblock %}</p>
+
+<p>Then we need to create our encryption/signing key:</p>
+
+<pre><code>gpg --gen-key
+</code></pre>
+
+<ul>
+<li>Select (1) RSA and RSA (default)</li>
+<li>Key size: 4096</li>
+<li>0 = key does not expire</li>
+<li>Indicate Name (like bob-backup) and email address</li>
+<li>Select a strong passphrase</li>
+</ul>
+
+<p>When the key is generated you should get something like:</p>
+
+<pre><code>gpg: key C0394CB2 marked as ultimately trusted
+public and secret key created and signed.
+
+gpg: checking the trustdb
+gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
+gpg: depth: 0  valid:   2  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 2u
+pub   4096R/C0394CB2 2010-09-10
+      Key fingerprint = 659A C8C7 17B8 C1E0 1CCD  A8FB ABF9 57F1 C039 4CB2
+uid                  bob-backp &lt;bob-backup@aol.com&gt;
+sub   4096R/71202F84 2010-09-10
+</code></pre>
+
+<p>the real one: key D919A75F marked as ultimately trusted</p>
+
+<p>Please write down the GnuPG keyid as we will need it later for configuring duplicity.
+In the above case that would be : C0394CB2</p>
+
+<p>Finally the configuration and keyring need to be copied back to the Flash drive:</p>
+
+<pre><code>cp /root/.gnupg/* /boot/config/myconfig/gnupg
+</code></pre>
+
+<p>You should save the content of the gnupg directory on a safe location (i.e. CD or Flash drive) as well in case the unRAID server get dammaged or stolen.</p>
+
+<h3 id="create-duply-config">Create Duply config</h3>
+
+<p>You can create an empty duply configuratio file by launching:</p>
+
+<pre><code># duply backup-to-alice create
+</code></pre>
+
+<p>There are few important things to set before being able to use this profile:
+   * Specify a large and non volatile enough cache directory [IMPORTANT]
+   * Specify a decent tmp directory
+   * Indicate source directory and remote server address
+   * Setup GPG key and password</p>
+
+<pre><code>Congratulations. You just created the profile 'testme'.
+The initial config file has been created as 
+'/root/.duply/backup-to-alice/conf'.
+You should now adjust this config file to your needs.
+</code></pre>
+
+<p>You can edit the above dummy configuration file with the following information (and adapt it to your situation). When you are done you will need to copy it to /boot/conf/myconfig/duply-conf.</p>
+
+<pre><code>GPG_KEY='C0394CB2'
+GPG_PW='putyourpasswordhere'
+TARGET='scp://bob@localhost:22/myremotespace/duplicity-backup'
+SOURCE='/root/testsource'
+TEMP_DIR=/mnt/user/duplicity-cache_tmp/tmp
+ARCH_DIR=/mnt/user/duplicity-cache_tmp/.cache
+</code></pre>
+
+<p>Or download and adapt the following file.</p>
+
+<p>{% codeblock /boot/config/myconfig/duply-conf/conf %}</p>
+
+<h1 id="gpg-encryption-settings-simple-settings">gpg encryption settings, simple settings:</h1>
+
+<h1 id="gpg-key-disabled-disables-encryption-alltogether">GPG_KEY=&lsquo;disabled&rsquo; - disables encryption alltogether</h1>
+
+<h1 id="gpg-key-key1-key2-gpg-pw-pass-encrypt-with-keys-sign">GPG_KEY=&rsquo;<key1>[,<key2>]&lsquo;; GPG_PW=&lsquo;pass&rsquo; - encrypt with keys, sign</h1>
+
+<h1 id="with-key1-if-secret-key-available-and-use-gpg-pw-for-sign-decrypt">with key1 if secret key available and use GPG_PW for sign &amp; decrypt</h1>
+
+<h1 id="gpg-pw-passphrase-symmetric-encryption-using-passphrase-only">GPG_PW=&lsquo;passphrase&rsquo; - symmetric encryption using passphrase only</h1>
+
+<p>GPG_KEY=&lsquo;C0394CB2&rsquo;
+GPG_PW=&lsquo;putyourpasswordhere&rsquo;</p>
+
+<h1 id="gpg-encryption-settings-in-detail-extended-settings">gpg encryption settings in detail (extended settings)</h1>
+
+<h1 id="the-above-settings-translate-to-the-following-more-specific-settings">the above settings translate to the following more specific settings</h1>
+
+<h1 id="gpg-keys-enc-keyid1-keyid2-list-of-pubkeys-to-encrypt-to">GPG_KEYS_ENC=&rsquo;<keyid1>,[<keyid2>,&hellip;]&rsquo; - list of pubkeys to encrypt to</h1>
+
+<h1 id="gpg-key-sign-keyid1-disabled-a-secret-key-for-signing">GPG_KEY_SIGN=&rsquo;<keyid1>|disabled&rsquo; - a secret key for signing</h1>
+
+<h1 id="gpg-pw-passphrase-needed-for-signing-decryption-and-symmetric">GPG_PW=&lsquo;passphrase&rsquo; - needed for signing, decryption and symmetric</h1>
+
+<h1 id="encryption-consider-using-gpg-agent-if-you-want-to-use-different">encryption. consider using gpg-agent if you want to use different</h1>
+
+<h1 id="passphrases-for-e-g-symmetric-encryption-plus-key-signing">passphrases for e.g. symmetric encryption plus key signing.</h1>
+
+<h1 id="notes-on-en-decryption">notes on en/decryption</h1>
+
+<h1 id="private-key-and-passphrase-will-only-be-needed-for-decryption-or-signing">private key and passphrase will only be needed for decryption or signing.</h1>
+
+<h1 id="for-security-reasons-it-makes-sense-to-separate-the-signing-key-from-the">for security reasons it makes sense to separate the signing key from the</h1>
+
+<h1 id="encryption-keys-https-answers-launchpad-net-duplicity-question-107216">encryption keys. <a href="https://answers.launchpad.net/duplicity/+question/107216">https://answers.launchpad.net/duplicity/+question/107216</a></h1>
+
+<p>#GPG_KEYS_ENC=&rsquo;<pubkey1>,<pubkey2>,&hellip;&rsquo;
+#GPG_KEY_SIGN=&rsquo;<prvkey>&lsquo;</p>
+
+<h1 id="gpg-options-passed-from-duplicity-to-gpg-process-default">gpg options passed from duplicity to gpg process (default=&ldquo;)</h1>
+
+<h1 id="e-g-trust-model-pgp-classic-direct-always">e.g. &ldquo;&ndash;trust-model pgp|classic|direct|always&rdquo;</h1>
+
+<h1 id="or-compress-algo-bzip2-bzip2-compress-level-9">or &ldquo;&ndash;compress-algo=bzip2 &ndash;bzip2-compress-level=9&rdquo;</h1>
+
+<p>#GPG_OPTS=&rdquo;</p>
+
+<h1 id="disable-preliminary-tests-with-the-following-setting">disable preliminary tests with the following setting</h1>
+
+<p>#GPG_TEST=&lsquo;disabled&rsquo;</p>
+
+<h1 id="credentials-server-address-of-the-backup-target-url-format">credentials &amp; server address of the backup target (URL-Format)</h1>
+
+<h1 id="syntax-is">syntax is</h1>
+
+<h1 id="scheme-user-password-host-port-path">scheme://[user:password@]host[:port]/[/]path</h1>
+
+<h1 id="probably-one-out-of">probably one out of</h1>
+
+<h1 id="file-some-dir">file:///some_dir</h1>
+
+<h1 id="ftp-user-password-other-host-port-some-dir"><a href="ftp://user[:password]@other.host[:port]/some_dir">ftp://user[:password]@other.host[:port]/some_dir</a></h1>
+
+<h1 id="hsi-user-password-other-host-some-dir">hsi://user[:password]@other.host/some_dir</h1>
+
+<h1 id="cf-http-container-name">cf+<a href="http://container_name">http://container_name</a></h1>
+
+<h1 id="imap-user-password-host-com-from-address-prefix">imap://user[:password]@host.com[/from_address_prefix]</h1>
+
+<h1 id="imaps-user-password-host-com-from-address-prefix">imaps://user[:password]@host.com[/from_address_prefix]</h1>
+
+<h1 id="rsync-user-password-other-host-port-module-some-dir">rsync://user[:password]@other.host[:port]::/module/some_dir</h1>
+
+<h1 id="rsync-over-ssh-only-keyauth"># rsync over ssh (only keyauth)</h1>
+
+<h1 id="rsync-user-other-host-port-relative-path">rsync://user@other.host[:port]/relative_path</h1>
+
+<h1 id="rsync-user-other-host-port-absolute-path">rsync://user@other.host[:port]//absolute_path</h1>
+
+<h1 id="for-the-s3-user-password-are-aws-access-key-id-aws-secret-access-key"># for the s3 user/password are AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY</h1>
+
+<h1 id="s3-user-password-host-bucket-name-prefix">s3://[user:password]@host/bucket_name[/prefix]</h1>
+
+<h1 id="s3-http-user-password-bucket-name-prefix">s3+http://[user:password]@bucket_name[/prefix]</h1>
+
+<h1 id="scp-user-password-other-host-port-some-dir">scp://user[:password]@other.host[:port]/some_dir</h1>
+
+<h1 id="ssh-user-password-other-host-port-some-dir">ssh://user[:password]@other.host[:port]/some_dir</h1>
+
+<h1 id="tahoe-alias-directory">tahoe://alias/directory</h1>
+
+<h1 id="webdav-user-password-other-host-some-dir">webdav://user[:password]@other.host/some_dir</h1>
+
+<h1 id="webdavs-user-password-other-host-some-dir">webdavs://user[:password]@other.host/some_dir</h1>
+
+<h1 id="attention-characters-other-than-a-za-z0-9-in-user-password-path-have">ATTENTION: characters other than A-Za-z0-9.-_.~ in user,password,path have</h1>
+
+<h1 id="to-be-replaced-by-their-url-encoded-pendants-see">to be replaced by their url encoded pendants, see</h1>
+
+<h1 id="http-en-wikipedia-org-wiki-url-encoding"><a href="http://en.wikipedia.org/wiki/Url_encoding">http://en.wikipedia.org/wiki/Url_encoding</a></h1>
+
+<h1 id="if-you-define-the-credentials-as-target-user-target-pass-below">if you define the credentials as TARGET_USER, TARGET_PASS below</h1>
+
+<h1 id="duply-will-url-encode-them-for-you">duply will url_encode them for you</h1>
+
+<p>#TARGET=&lsquo;scheme://user[:password]@host[:port]/[/]path&rsquo;
+TARGET=&lsquo;scp://bob@localhost:22/myremotespace/duplicity-backup&rsquo;</p>
+
+<h1 id="optionally-the-username-password-can-be-defined-as-extra-variables">optionally the username/password can be defined as extra variables</h1>
+
+<h1 id="setting-them-here-and-in-target-results-in-an-error">setting them here <em>and</em> in TARGET results in an error</h1>
+
+<p>#TARGET_USER=&rsquo;_backend<em>username</em>&lsquo;
+#TARGET_PASS=&rsquo;_backend<em>password</em>&lsquo;</p>
+
+<h1 id="base-directory-to-backup">base directory to backup</h1>
+
+<p>#SOURCE=&lsquo;/path/of/source&rsquo;
+SOURCE=&lsquo;/root/testsource&rsquo;</p>
+
+<h1 id="time-frame-for-old-backups-to-keep-used-for-the-purge-command">Time frame for old backups to keep, Used for the &ldquo;purge&rdquo; command.</h1>
+
+<h1 id="see-duplicity-man-page-chapter-time-formats">see duplicity man page, chapter TIME_FORMATS)</h1>
+
+<h1 id="defaults-to-1m-if-not-set">defaults to 1M, if not set</h1>
+
+<p>#MAX_AGE=1M</p>
+
+<h1 id="number-of-full-backups-to-keep-used-for-the-purge-full-command">Number of full backups to keep. Used for the &ldquo;purge-full&rdquo; command.</h1>
+
+<h1 id="see-duplicity-man-page-action-remove-all-but-n-full">See duplicity man page, action &ldquo;remove-all-but-n-full&rdquo;.</h1>
+
+<h1 id="defaults-to-1-if-not-set">defaults to 1, if not set</h1>
+
+<p>#MAX_FULL_BACKUPS=1</p>
+
+<h1 id="verbosity-of-output-error-0-warning-1-2-notice-3-4-info-5-8-debug-9">verbosity of output (error 0, warning 1-2, notice 3-4, info 5-8, debug 9)</h1>
+
+<h1 id="default-is-4-if-not-set">default is 4, if not set</h1>
+
+<p>#VERBOSITY=5</p>
+
+<h1 id="temporary-file-space-at-least-the-size-of-the-biggest-file-in-backup">temporary file space. at least the size of the biggest file in backup</h1>
+
+<h1 id="for-a-successful-restoration-process-default-is-tmp-if-not-set">for a successful restoration process. (default is &lsquo;/tmp&rsquo;, if not set)</h1>
+
+<p>#TEMP_DIR=/tmp
+TEMP_DIR=/mnt/user/duplicity-cache_tmp/tmp</p>
+
+<h1 id="modifies-archive-dir-option-since-v0-6-0-defines-a-folder-that-holds">Modifies archive-dir option (since v0.6.0) Defines a folder that holds</h1>
+
+<h1 id="unencrypted-meta-data-of-the-backup-enabling-new-incrementals-without-the">unencrypted meta data of the backup, enabling new incrementals without the</h1>
+
+<h1 id="need-to-decrypt-backend-metadata-first-if-empty-or-deleted-somehow-the">need to decrypt backend metadata first. If empty or deleted somehow, the</h1>
+
+<h1 id="private-key-and-it-s-password-are-needed">private key and it&rsquo;s password are needed.</h1>
+
+<h1 id="note-this-is-confidential-data-put-it-somewhere-safe-it-can-grow-quite">NOTE: This is confidential data. Put it somewhere safe. It can grow quite</h1>
+
+<h1 id="big-over-time-so-you-might-want-to-put-it-not-in-the-home-dir">big over time so you might want to put it not in the home dir.</h1>
+
+<h1 id="default-cache-duplicity-duply-profile">default &lsquo;~/.cache/duplicity/duply_<profile>/&rsquo;</h1>
+
+<h1 id="if-set-arch-dir-profile">if set  &lsquo;${ARCH_DIR}/<profile>&lsquo;</h1>
+
+<p>#ARCH_DIR=/some/space/safe/.duply-cache
+ARCH_DIR=/mnt/user/duplicity-cache_tmp/.cache</p>
+
+<h1 id="activates-duplicity-full-if-older-than-option-since-duplicity-v0-4-4-rc3">activates duplicity &ndash;full-if-older-than option (since duplicity v0.4.4.RC3)</h1>
+
+<h1 id="forces-a-full-backup-if-last-full-backup-reaches-a-specified-age-for-the">forces a full backup if last full backup reaches a specified age, for the</h1>
+
+<h1 id="format-of-max-fullbkp-age-see-duplicity-man-page-chapter-time-formats">format of MAX_FULLBKP_AGE see duplicity man page, chapter TIME_FORMATS</h1>
+
+<h1 id="uncomment-the-following-two-lines-to-enable-this-setting">Uncomment the following two lines to enable this setting.</h1>
+
+<p>#MAX_FULLBKP_AGE=1M
+#DUPL_PARAMS=&ldquo;$DUPL_PARAMS &ndash;full-if-older-than $MAX_FULLBKP_AGE &ldquo;</p>
+
+<h1 id="sets-duplicity-volsize-option-available-since-v0-4-3-rc7">sets duplicity &ndash;volsize option (available since v0.4.3.RC7)</h1>
+
+<h1 id="set-the-size-of-backup-chunks-to-volsize-mb-instead-of-the-default-25mb">set the size of backup chunks to VOLSIZE MB instead of the default 25MB.</h1>
+
+<h1 id="volsize-must-be-number-of-mb-s-to-set-the-volume-size-to">VOLSIZE must be number of MB&rsquo;s to set the volume size to.</h1>
+
+<h1 id="uncomment-the-following-two-lines-to-enable-this-setting-1">Uncomment the following two lines to enable this setting.</h1>
+
+<p>#VOLSIZE=50
+#DUPL_PARAMS=&ldquo;$DUPL_PARAMS &ndash;volsize $VOLSIZE &ldquo;</p>
+
+<h1 id="exclude-folders-containing-exclusion-file-since-duplicity-0-5-14">exclude folders containing exclusion file (since duplicity 0.5.14)</h1>
+
+<h1 id="uncomment-the-following-two-lines-to-enable-this-setting-2">Uncomment the following two lines to enable this setting.</h1>
+
+<h1 id="filename-duplicity-ignore">FILENAME=&lsquo;.duplicity-ignore&rsquo;</h1>
+
+<h1 id="dupl-params-dupl-params-exclude-if-present-filename">DUPL_PARAMS=&ldquo;$DUPL_PARAMS &ndash;exclude-if-present &lsquo;$FILENAME&rsquo;&rdquo;</h1>
+
+<h1 id="deprecated-setting">DEPRECATED setting</h1>
+
+<h1 id="sets-duplicity-time-separator-option-since-v0-4-4-rc2-to-allow-users">sets duplicity &ndash;time-separator option (since v0.4.4.RC2) to allow users</h1>
+
+<h1 id="to-change-the-time-separator-from-to-another-character-that-will-work">to change the time separator from &lsquo;:&rsquo; to another character that will work</h1>
+
+<h1 id="on-their-system-hint-for-windows-smb-shares-use-time-separator">on their system.  HINT: For Windows SMB shares, use &ndash;time-separator=&rsquo;_&lsquo;.</h1>
+
+<h1 id="note-is-not-valid-as-it-conflicts-with-date-separator">NOTE: &lsquo;-&rsquo; is not valid as it conflicts with date separator.</h1>
+
+<h1 id="attention-only-use-this-with-duplicity-0-5-10-since-then-default-file">ATTENTION: only use this with duplicity &lt; 0.5.10, since then default file</h1>
+
+<h1 id="naming-is-compatible-and-this-option-is-pending-depreciation">naming is compatible and this option is pending depreciation</h1>
+
+<h1 id="dupl-params-dupl-params-time-separator">DUPL_PARAMS=&ldquo;$DUPL_PARAMS &ndash;time-separator _ &ldquo;</h1>
+
+<h1 id="deprecated-setting-1">DEPRECATED setting</h1>
+
+<h1 id="activates-duplicity-short-filenames-option-when-uploading-to-a-file">activates duplicity &ndash;short-filenames option, when uploading to a file</h1>
+
+<h1 id="system-that-can-t-have-filenames-longer-than-30-characters-e-g-mac-os-8">system that can&rsquo;t have filenames longer than 30 characters (e.g. Mac OS 8)</h1>
+
+<h1 id="or-have-problems-with-as-part-of-the-filename-e-g-microsoft-windows">or have problems with &lsquo;:&rsquo; as part of the filename (e.g. Microsoft Windows)</h1>
+
+<h1 id="attention-only-use-this-with-duplicity-0-5-10-later-versions-default-file">ATTENTION: only use this with duplicity &lt; 0.5.10, later versions default file</h1>
+
+<h1 id="naming-is-compatible-and-this-option-is-pending-depreciation-1">naming is compatible and this option is pending depreciation</h1>
+
+<h1 id="dupl-params-dupl-params-short-filenames">DUPL_PARAMS=&ldquo;$DUPL_PARAMS &ndash;short-filenames &ldquo;</h1>
+
+<h1 id="more-duplicity-command-line-options-can-be-added-in-the-following-way">more duplicity command line options can be added in the following way</h1>
+
+<h1 id="don-t-forget-to-leave-a-separating-space-char-at-the-end">don&rsquo;t forget to leave a separating space char at the end</h1>
+
+<h1 id="dupl-params-dupl-params-put-your-options-here">DUPL_PARAMS=&ldquo;$DUPL_PARAMS &ndash;put_your_options_here &ldquo;</h1>
+
+<p>{% endcodeblock %}</p>
+
+<h3 id="add-duplicity-startup-script">Add duplicity startup script</h3>
+
+<p>Save the following file on your flash drive.</p>
+
+<p>{% codeblock /boot/config/myconfig/duplicity-setup.sh lang:bash %}
+#!/bin/sh</p>
+
+<p>#################################################################</p>
+
+<h1 id="modify-the-following-variables-according-to-your-installation-1">MODIFY THE FOLLOWING VARIABLES ACCORDING TO YOUR INSTALLATION</h1>
+
+<p>#################################################################</p>
+
+<p>#Location of your binary packages on the USB Flash drive
+PKG_DIR=/boot/packages</p>
+
+<p>#Location of your custom scripts and config files on the USB Flash drive
+#This scrip expects to find the following directory within this one:</p>
+
+<h1 id="gnupg">.gnupg</h1>
+
+<p>CUSTOM_CONFIG_DIR=/boot/config/myconfig</p>
+
+<h1 id="expected-files-1">Expected files:</h1>
+
+<h1 id="custom-config-dir-gnupg">CUSTOM_CONFIG_DIR/gnupg/</h1>
+
+<h1 id="gpg-conf">- gpg.conf</h1>
+
+<h1 id="pubring-gpg">- pubring.gpg</h1>
+
+<h1 id="random-seed">- random_seed</h1>
+
+<h1 id="secring-gpg">- secring.gpg</h1>
+
+<h1 id="trustdb-gpg">- trustdb.gpg</h1>
+
+<p>##################################################################################</p>
+
+<h1 id="installation-setup-starts-here-no-need-to-modify-anything-beyond-this-point-1">Installation &amp; setup starts here, no need to modify anything beyond this point</h1>
+
+<p>##################################################################################</p>
+
+<p>#########################</p>
+
+<h1 id="duplicity-setup">DUPLICITY SETUP</h1>
+
+<p>#########################</p>
+
+<p>#Package installation
+installpkg $PKG_DIR/python-2.6.6-i486-1.txz
+installpkg $PKG_DIR/gnupg-1.4.10-i486-1.txz
+installpkg $PKG_DIR/ncftp-3.2.5-i486-1.txz
+installpkg $PKG_DIR/librsync-0.9.7-i486-4as.txz
+tar zxf $PKG_DIR/boto-1.9b.tar.gz -C /tmp
+cd /tmp/boto-1.9b/
+python setup.py install
+installpkg $PKG_DIR/duplicity-0.6.17-i686-1.txz</p>
+
+<h1 id="duply">Duply</h1>
+
+<p>tar -C /tmp/ -xzf /boot/packages/duply_1.5.5.4.tgz
+cp /tmp/duply_1.5.5.4/duply /usr/bin
+chown root:root /usr/bin/duply</p>
+
+<h1 id="copy-gnupg-config-keys">Copy gnupg config &amp; keys</h1>
+
+<p>mkdir /root/.gnupg
+cp $CUSTOM_CONFIG_DIR/gnupg/* /root/.gnupg/</p>
+
+<h1 id="copy-duply-conf">Copy duply conf</h1>
+
+<p>mkdir -p /root/.duply/backup-to-alice
+cp /boot/config/myconfig/duply-conf/* /root/.duply/backup-to-alice/.</p>
+
+<p>{% endcodeblock %}</p>
+
+<h2 id="manually-test-backup">Manually test backup</h2>
+
+<pre><code>duply backup-to-alice backup
+</code></pre>
+
+<h2 id="save-duply-profile">Save duply profile</h2>
+
+<p>If you have used Duply to create your configuration file you should have noted the following warning message:</p>
+
+<p>IMPORTANT:
+   Copy the <em>whole</em> profile folder after the first backup to a safe place.
+   It contains everything needed to restore your backups. You will need
+   it if you have to restore the backup from another system (e.g. after a
+   system crash). Keep access to these files restricted as they contain
+   <em>all</em> informations (gpg data, ftp data) to access and modify your backups.</p>
+
+<p>Repeat this step after <em>all</em> configuration changes. Some configuration
+   options are crucial for restoration.</p>
+
+<p>After successfully testing your configuration with a remote server you should:</p>
+
+<pre><code>mkdir /boot/config/myconfig/duply-conf
+cp /root/.duply/backup-to-alice/* /boot/config/myconfig/duply-conf/.
+</code></pre>
+
+<h2 id="add-dupliciy-cron-job">Add Dupliciy Cron job</h2>
+
+<p>{% codeblock /boot/config/myconfig/duplicity-cron.sh lang:bash %}
+#!/bin/sh</p>
+
+<p>#########################</p>
+
+<h1 id="cron-job-setup">CRON JOB SETUP</h1>
+
+<p>#########################</p>
+
+<p>crontab -l &gt;/tmp/crontab
+echo &ldquo;# start duplicity everyday&rdquo; &gt;&gt;/tmp/crontab
+echo &ldquo;15 05 * * * /usr/bin/duply backup-to-alice backup&rdquo; &gt;&gt;/tmp/crontab
+echo &ldquo;05 00 01 * * /usr/bin/duply backup-to-alice backup_verify_purge &ndash;force&rdquo; &gt;&gt;/tmp/crontab
+crontab /tmp/crontab
+cp /tmp/crontab /var/spool/cron/crontabs/root-
+{% endcodeblock %}</p>
+
+<h2 id="append-go-script">Append go script</h2>
+
+<pre><code>/boot/config/myconfig/chroot-sftp-setup.sh
+/boot/config/myconfig/duplicity-setup.sh
+/boot/config/myconfig/duplicity-cron.sh
+</code></pre>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://danynativel.net/2012/01/03/distributed-encrypted-backup-across-unraid-machines/" data-id="649e28205be302dcfce441b040c6142d" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://danynativel.net/2012/01/03/distributed-encrypted-backup-across-unraid-machines/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://danynativel.net/2011/08/18/setup-a-git-server-under-unraid/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">Setup a Git Server under unRaid</div>
+    </a>
+    
+
+    
+    <a href="https://danynativel.net/2012/08/09/clone-mifare-cards-using-chinesse-uuid-writable-cards/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">Clone MiFare cards using Chinesse UUID writable cards</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "danynativel" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/computer">
+                    computer
+                </a>
+                <span class="category-list-count">12</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/freediving">
+                    freediving
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/photography">
+                    photography
+                </a>
+                <span class="category-list-count">7</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/videography">
+                    videography
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/apple">
+                    apple
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/archlinux">
+                    archlinux
+                </a>
+                <span class="category-list-count">6</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/competition">
+                    competition
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/dance">
+                    dance
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/hacking">
+                    hacking
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/hardware">
+                    hardware
+                </a>
+                <span class="category-list-count">3</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/how-to">
+                    how-to
+                </a>
+                <span class="category-list-count">11</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/linux">
+                    linux
+                </a>
+                <span class="category-list-count">10</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/music">
+                    music
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/photos">
+                    photos
+                </a>
+                <span class="category-list-count">4</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/review">
+                    review
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/security">
+                    security
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/sport">
+                    sport
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/tips">
+                    tips
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/unraid">
+                    unraid
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/videos">
+                    videos
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://danynativel.net/tags/apple" style="font-size: 12px;">apple</a>
+        
+        
+        <a href="https://danynativel.net/tags/archlinux" style="font-size: 12px;">archlinux</a>
+        
+        
+        <a href="https://danynativel.net/tags/competition" style="font-size: 12px;">competition</a>
+        
+        
+        <a href="https://danynativel.net/tags/dance" style="font-size: 12px;">dance</a>
+        
+        
+        <a href="https://danynativel.net/tags/hacking" style="font-size: 12px;">hacking</a>
+        
+        
+        <a href="https://danynativel.net/tags/hardware" style="font-size: 12px;">hardware</a>
+        
+        
+        <a href="https://danynativel.net/tags/how-to" style="font-size: 12px;">how-to</a>
+        
+        
+        <a href="https://danynativel.net/tags/linux" style="font-size: 12px;">linux</a>
+        
+        
+        <a href="https://danynativel.net/tags/music" style="font-size: 12px;">music</a>
+        
+        
+        <a href="https://danynativel.net/tags/photos" style="font-size: 12px;">photos</a>
+        
+        
+        <a href="https://danynativel.net/tags/review" style="font-size: 12px;">review</a>
+        
+        
+        <a href="https://danynativel.net/tags/security" style="font-size: 12px;">security</a>
+        
+        
+        <a href="https://danynativel.net/tags/sport" style="font-size: 12px;">sport</a>
+        
+        
+        <a href="https://danynativel.net/tags/tips" style="font-size: 12px;">tips</a>
+        
+        
+        <a href="https://danynativel.net/tags/unraid" style="font-size: 12px;">unraid</a>
+        
+        
+        <a href="https://danynativel.net/tags/videos" style="font-size: 12px;">videos</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://danynativel.net/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://danynativel.net/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

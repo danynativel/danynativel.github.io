@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Setup a Git Server under unRaid &middot; Dany Nativel</title>
+    <meta name="generator" content="Hugo 0.40.3" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Dany Nativel">
+    
+      <meta name="description" content="">
+    
+    
+    <link rel="canonical" href="https://danynativel.net/2011/08/18/setup-a-git-server-under-unraid/"/>
+    <link rel="icon" href="https://danynativel.net/favicon.ico">
+    <link rel="apple-touch-icon" href="https://danynativel.net/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://danynativel.net/css/style.css">
+    <link rel="stylesheet" href="https://danynativel.net/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://danynativel.net/css/monokai.css">
+    <link rel="stylesheet" href="https://danynativel.net/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Setup a Git Server under unRaid" />
+<meta property="og:description" content="The following tutorial will get you through the steps to install a fully functional Git server under unRaid.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://danynativel.net/2011/08/18/setup-a-git-server-under-unraid/" />
+
+
+
+<meta property="article:published_time" content="2011-08-18T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2011-08-18T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Setup a Git Server under unRaid">
+<meta itemprop="description" content="The following tutorial will get you through the steps to install a fully functional Git server under unRaid.
+
+">
+
+
+<meta itemprop="datePublished" content="2011-08-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2011-08-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="519">
+
+
+
+<meta itemprop="keywords" content="Linux,How-To,unRaid," />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Setup a Git Server under unRaid"/>
+<meta name="twitter:description" content="The following tutorial will get you through the steps to install a fully functional Git server under unRaid.
+
+"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://danynativel.net/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://danynativel.net/img/facevase.png')"></i>
+          
+          <span class="site-title">Dany Nativel</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/">Home</a>
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://danynativel.net/categories/">Categories</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://danynativel.net/img/dnativel.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://danynativel.net/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/">Home</a></td>
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://danynativel.net/categories/">Categories</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://danynativel.net/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://danynativel.net/img/dnativel.png">
+      
+      <h2 id="name">Dany Nativel</h2>
+      <h3 id="title">Freediver - Photographer - Privacy &amp; FOSS advocate</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>France</span>
+      
+          <a id="follow" href="https://www.instagram.com/dany.nativel">
+              Follow
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        22
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          16
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//instagram.com/dany.nativel" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//linkedin.com/in/danynativel" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//keybase.io/danynativel" target="_blank" title="Keybase"><i class="fa fa-key"></i></a></td>
+
+
+
+<td><a href="http://www.danynativel.com/" target="_blank" title="Street Photo"><i class="fa fa-picture-o"></i></a></td>
+
+
+
+<td><a href="https://eyeem.com/u/danynativel" target="_blank" title="Eyeem - Alternative to Instagram"><i class="fa fa-camera-retro"></i></a></td>
+
+
+
+<td><a href="mailto:dany@nativel.net" target="_blank" title="Email"><i class="fa fa-envelope"></i></a></td>
+
+
+
+
+
+
+          <td><a href="https://danynativel.net/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://danynativel.net/top/raid-and-server.jpg" class="article-banner">
+        
+
+        <header class="article-header">
+    <a href="https://danynativel.net/2011/08/18/setup-a-git-server-under-unraid/">
+    <h1 class="article-title" itemprop="name">
+        Setup a Git Server under unRaid
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2011-08-18 00:00:00 &#43;0000 UTC" itemprop="datePublished">2011-08-18</time>
+	    
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/categories/computer">Computer</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/linux">Linux</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/how-to">How-To</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://danynativel.net/tags/unraid">unRaid</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>The following tutorial will get you through the steps to install a fully functional Git server under unRaid.</p>
+
+<p></p>
+
+<h2 id="download-and-copy-packages">Download and copy packages</h2>
+
+<pre><code>wget http://natzo.com/packages/git-1.7.3.1-i686-1.txz /boot/packages
+</code></pre>
+
+<h2 id="setup-global-storage-space-for-git-repositories">Setup global storage space for git repositories</h2>
+
+<ul>
+<li>Using unraid web interface, add a user share called &ldquo;remote-backup&rdquo;</li>
+<li>Defines which drive(s) is(are) included.</li>
+<li>Disable SMB and NFS mouting</li>
+<li>Set split level to 999 for splitting all files across the disks</li>
+</ul>
+
+<h2 id="create-and-install-git-user-ssh-key">Create and install git user SSH key</h2>
+
+<p>If you have an exisiting private key on your remote PC just copy over its public key and rename it to</p>
+
+<p>{% codeblock %}
+/boot/config/myconfig/ssh/id_git_rsa.pub
+{% endcodeblock %}</p>
+
+<h2 id="install-setup-script">Install setup script</h2>
+
+<p>Git is configured with git-shell to prevent other uses besides git (i.e. ssh).</p>
+
+<p>Save the following file on your flash drive.</p>
+
+<p>{% codeblock /boot/config/myconfig/git-setup.sh lang:bash %}
+#!/bin/sh</p>
+
+<p>#################################################################</p>
+
+<h1 id="modify-the-following-variables-according-to-your-installation">MODIFY THE FOLLOWING VARIABLES ACCORDING TO YOUR INSTALLATION</h1>
+
+<p>##
+#################################################################</p>
+
+<p>#Location of your binary packages on the USB Flash drive
+PKG_DIR=/boot/packages</p>
+
+<p>#Location of your custom scripts and config files on the USB Flash drive
+#This scrip expects to find the following directoy within this one:</p>
+
+<h1 id="ssh">./ssh</h1>
+
+<p>CUSTOM_CONFIG_DIR=/boot/config/myconfig</p>
+
+<h1 id="this-is-the-remote-user-that-will-have-access-to-a-chroot-dir-you-normally-only-have-his-public-key">This is the remote user that will have access to a chroot dir. You normally only have his public key</h1>
+
+<h1 id="you-need-to-have-the-following-files-under-custom-config-dir-ssh">You need to have the following files under CUSTOM_CONFIG_DIR/ssh</h1>
+
+<p>REMOTE_USER=git</p>
+
+<h1 id="directory-under-your-unraid-user-share-that-will-host-all-the-remote-user-s-backups">Directory under your unRAID user share that will host all the remote user&rsquo;s backups</h1>
+
+<p>UNRAID_BACKUP_DIR=/mnt/user/git-repos
+GIT_GROUP=git</p>
+
+<h1 id="expected-files">Expected files:</h1>
+
+<h1 id="custom-config-dir-ssh">CUSTOM_CONFIG_DIR/ssh/</h1>
+
+<h1 id="id-git-rsa-pub">- id_git_rsa.pub</h1>
+
+<h1 id="sshd-config">- sshd_config</h1>
+
+<h1 id="ssh-config">- ssh_config</h1>
+
+<h1 id="ssh-host-dsa-key">- ssh_host_dsa_key</h1>
+
+<h1 id="ssh-host-dsa-key-pub">- ssh_host_dsa_key.pub</h1>
+
+<h1 id="ssh-host-key">- ssh_host_key</h1>
+
+<h1 id="ssh-host-key-pub">- ssh_host_key.pub</h1>
+
+<h1 id="ssh-host-rsa-key">- ssh_host_rsa_key</h1>
+
+<h1 id="ssh-host-rsa-key-pub">- ssh_host_rsa_key.pub</h1>
+
+<h1 id="knwon-hosts">- knwon_hosts????</h1>
+
+<h1 id="optional-id-root-rsa-pub">- Optional: id_root_rsa.pub</h1>
+
+<p>##################################################################################</p>
+
+<h1 id="installation-setup-starts-here-no-need-to-modify-anything-beyond-this-point">Installation &amp; setup starts here, no need to modify anything beyond this point</h1>
+
+<p>##################################################################################</p>
+
+<p>#########################</p>
+
+<h1 id="chrooted-sftp-setup">CHROOTED SFTP SETUP</h1>
+
+<p>#########################</p>
+
+<p>#Package installation
+installpkg $PKG_DIR/git-1.7.3.1-i686-1.txz</p>
+
+<p>#Add remote user
+groupadd $GIT_GROUP
+useradd -g $GIT_GROUP -s /usr/local/bin/git-shell -d /home/$REMOTE_USER -p &lsquo;2234ZERZERZLREZOERZERZER&rsquo; $REMOTE_USER</p>
+
+<p>mkdir -p /home/$REMOTE_USER/.ssh
+mkdir /git-repos</p>
+
+<p>mount &ndash;bind $UNRAID_BACKUP_DIR /git-repos</p>
+
+<p>cp &ndash;preserve=timestamps $CUSTOM_CONFIG_DIR/ssh/&ldquo;id-&rdquo;$REMOTE_USER&rdquo;_rsa.pub&rdquo; /home/$REMOTE_USER/.ssh/authorized_keys</p>
+
+<p>chown $REMOTE_USER:$GIT_GROUP /home/$REMOTE_USER/.ssh /home/$REMOTE_USER/.ssh/*
+chmod 755 /home/$REMOTE_USER /home/$REMOTE_USER/.ssh
+chmod 600 /home/$REMOTE_USER/.ssh/*
+{% endcodeblock %}</p>
+
+<h2 id="run-the-git-install">Run the git install</h2>
+
+<p>Reboot or launch /boot/config/myconfig/git-setup.sh.</p>
+
+<h2 id="create-your-first-bare-repo">Create your first bare repo</h2>
+
+<p>unRAID will only contain &ldquo;bare&rdquo; GIT repositories that need to be first created on unRAID and not from the remote client.</p>
+
+<pre><code># mkdir /git-repos/myrepo.git
+# cd /git-repos/myrepo.git
+# git --bare init
+# chown -R git /git-repos/myrepo.git
+</code></pre>
+
+<h2 id="create-your-first-working-copy-and-push-it-to-unraid">Create your first working copy and push it to unRAID</h2>
+
+<p>On the remote client, you can use an existing repository or create a new one from scratch.</p>
+
+<p>If you start a brand new project, create an empty dir and initialize the repository. If you have an exisiting git project you can skip the following steps and just cd into your existing project.</p>
+
+<pre><code># cd myproject
+# git init
+# git add .
+# git comment -a 'initial commit'
+</code></pre>
+
+<p>Then add the remote bare repository and push your initial commit.</p>
+
+<pre><code># git remote add origin git@remotehost.com:/git-repos/myrepo.git
+# git push origin master
+</code></pre>
+
+<h2 id="commit-your-changes-and-push-them">Commit your changes and push them</h2>
+
+<p>Now work with git as usual, commit as usual and push your changes to unRAID when required.</p>
+
+<pre><code># git commit -am 'my fix'
+# git push master
+</code></pre>
+
+<h2 id="getting-your-repository-on-a-new-machine">Getting your repository on a new machine</h2>
+
+<pre><code># git clone git@remotehost.com:/git-repos/myrepo.git
+..
+# git commit -am 'my fix'
+# git push master
+</code></pre>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://danynativel.net/2011/08/18/setup-a-git-server-under-unraid/" data-id="449c5836eaaaeee8a0d4e174f8f91527" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://danynativel.net/2011/08/18/setup-a-git-server-under-unraid/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://danynativel.net/2011/07/11/ntfs-support-on-apple-mac/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">NTFS Support on Apple Mac</div>
+    </a>
+    
+
+    
+    <a href="https://danynativel.net/2012/01/03/distributed-encrypted-backup-across-unraid-machines/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">Distributed Encrypted Backup across unRaid machines</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "danynativel" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/computer">
+                    computer
+                </a>
+                <span class="category-list-count">12</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/freediving">
+                    freediving
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/photography">
+                    photography
+                </a>
+                <span class="category-list-count">7</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/categories/videography">
+                    videography
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/apple">
+                    apple
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/archlinux">
+                    archlinux
+                </a>
+                <span class="category-list-count">6</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/competition">
+                    competition
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/dance">
+                    dance
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/hacking">
+                    hacking
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/hardware">
+                    hardware
+                </a>
+                <span class="category-list-count">3</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/how-to">
+                    how-to
+                </a>
+                <span class="category-list-count">11</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/linux">
+                    linux
+                </a>
+                <span class="category-list-count">10</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/music">
+                    music
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/photos">
+                    photos
+                </a>
+                <span class="category-list-count">4</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/review">
+                    review
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/security">
+                    security
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/sport">
+                    sport
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/tips">
+                    tips
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/unraid">
+                    unraid
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://danynativel.net/tags/videos">
+                    videos
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://danynativel.net/tags/apple" style="font-size: 12px;">apple</a>
+        
+        
+        <a href="https://danynativel.net/tags/archlinux" style="font-size: 12px;">archlinux</a>
+        
+        
+        <a href="https://danynativel.net/tags/competition" style="font-size: 12px;">competition</a>
+        
+        
+        <a href="https://danynativel.net/tags/dance" style="font-size: 12px;">dance</a>
+        
+        
+        <a href="https://danynativel.net/tags/hacking" style="font-size: 12px;">hacking</a>
+        
+        
+        <a href="https://danynativel.net/tags/hardware" style="font-size: 12px;">hardware</a>
+        
+        
+        <a href="https://danynativel.net/tags/how-to" style="font-size: 12px;">how-to</a>
+        
+        
+        <a href="https://danynativel.net/tags/linux" style="font-size: 12px;">linux</a>
+        
+        
+        <a href="https://danynativel.net/tags/music" style="font-size: 12px;">music</a>
+        
+        
+        <a href="https://danynativel.net/tags/photos" style="font-size: 12px;">photos</a>
+        
+        
+        <a href="https://danynativel.net/tags/review" style="font-size: 12px;">review</a>
+        
+        
+        <a href="https://danynativel.net/tags/security" style="font-size: 12px;">security</a>
+        
+        
+        <a href="https://danynativel.net/tags/sport" style="font-size: 12px;">sport</a>
+        
+        
+        <a href="https://danynativel.net/tags/tips" style="font-size: 12px;">tips</a>
+        
+        
+        <a href="https://danynativel.net/tags/unraid" style="font-size: 12px;">unraid</a>
+        
+        
+        <a href="https://danynativel.net/tags/videos" style="font-size: 12px;">videos</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://danynativel.net/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://danynativel.net/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

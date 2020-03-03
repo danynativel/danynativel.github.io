@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hacking on Dany Nativel</title>
+    <link>https://danynativel.net/tags/hacking/</link>
+    <description>Recent content in Hacking on Dany Nativel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Oct 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://danynativel.net/tags/hacking/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fixing Cressi Drake Max Dive Time</title>
+      <link>https://danynativel.net/2016/10/05/fixing-cressi-drake-max-dive-time/</link>
+      <pubDate>Wed, 05 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2016/10/05/fixing-cressi-drake-max-dive-time/</guid>
+      <description>When I received my brand new Cressi Drake dive computer watch, all the historical fields (dynamic, static) were blank except one field in the Pro/Free mode and which is the longest time spent in free dive (middle line, right). It was set to 0&amp;rsquo;26&amp;rdquo; and I thought that after my first dive which, will be more than 0&amp;rsquo;26&amp;rdquo;, the historical 0&amp;rsquo;26&amp;rdquo; would disappear and reflect my dives. After my first session, where I did a dive in Pro mode for 1&amp;rsquo;27&amp;rdquo;, the counter hasn&amp;rsquo;t changed and after further looking at it I noticed a little 2 digit on top of it that could indicate 20&amp;rsquo;26&amp;rdquo; instead of 0&amp;rsquo;26&amp;rdquo; and that could explain why this counter will never be updated since no humans can hold his breath for over 20 minutes, at least when breathing regular air.</description>
+    </item>
+    
+    <item>
+      <title>Clone MiFare cards using Chinesse UUID writable cards</title>
+      <link>https://danynativel.net/2012/08/09/clone-mifare-cards-using-chinesse-uuid-writable-cards/</link>
+      <pubDate>Thu, 09 Aug 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2012/08/09/clone-mifare-cards-using-chinesse-uuid-writable-cards/</guid>
+      <description>&lt;p&gt;libnfc supports UUID writable cards and even has some dedicated tools for them.&lt;/p&gt;
+
+&lt;p&gt;However it doesn&amp;rsquo;t work with some of the cards found on eBay that are even simpler to use. Sector 0 is unlocked and can be written without any additional commands. libnfc requires a small patch to get it working.&lt;/p&gt;
+
+&lt;p&gt;Following has been tested under ArchLinux with modified libnfc 1.5.1, mfoc 0.10.2 and a SCL3711 dongle.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

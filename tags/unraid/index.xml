@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Unraid on Dany Nativel</title>
+    <link>https://danynativel.net/tags/unraid/</link>
+    <description>Recent content in Unraid on Dany Nativel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 21 Oct 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://danynativel.net/tags/unraid/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Enabling Rsync daemon on unRAID</title>
+      <link>https://danynativel.net/2013/10/21/enabling-rsync-daemon-on-unraid/</link>
+      <pubDate>Mon, 21 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2013/10/21/enabling-rsync-daemon-on-unraid/</guid>
+      <description>&lt;p&gt;I used to rsync my data using a CIFS mount of the corresponding /mnt/user/share found on unRAID. I noticed that some of the files kept uploading even if they haven&amp;rsquo;t been modified. I also had issues with some long directories containing files with long filenames. After enabling rsync daemon on unRAID, all my problems went away and transfert speed was great.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Getting git-annex to run on unRAID</title>
+      <link>https://danynativel.net/2013/10/21/getting-git-annex-to-run-on-unraid/</link>
+      <pubDate>Mon, 21 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2013/10/21/getting-git-annex-to-run-on-unraid/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://git-annex.branchable.com/&#34;&gt;git-annex&lt;/a&gt; is an appealing Open Source replacement for Dropbox. You can easily install it on unRAID by following some easy steps.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Migrating to unRAID 5.0 Release</title>
+      <link>https://danynativel.net/2013/09/26/migrating-to-unraid-5-0-release/</link>
+      <pubDate>Thu, 26 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2013/09/26/migrating-to-unraid-5-0-release/</guid>
+      <description>&lt;p&gt;unRAID 5.0 has now  been officially released. Considering the significant changes, upgrade is not as smooth as it used to be so it is better to start off from scratch with a clean USB drive that only contains disk configuration. With the new add-ons management options it requires less tweaking in the &amp;lsquo;go&amp;rsquo; startup file. Please read the release note. Depending of your current version you might just have to upgrade the unRaid image while with other (i.e. any 5.0 beta) it is advised to go through a fresh installation while using exisiting disk configuration.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

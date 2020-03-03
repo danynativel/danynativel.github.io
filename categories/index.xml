@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Dany Nativel</title>
+    <link>https://danynativel.net/categories/</link>
+    <description>Recent content in Categories on Dany Nativel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://danynativel.net/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Computer</title>
+      <link>https://danynativel.net/categories/computer/</link>
+      <pubDate>Sun, 29 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/categories/computer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Freediving</title>
+      <link>https://danynativel.net/categories/freediving/</link>
+      <pubDate>Wed, 05 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/categories/freediving/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Photography</title>
+      <link>https://danynativel.net/categories/photography/</link>
+      <pubDate>Mon, 01 Apr 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/categories/photography/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

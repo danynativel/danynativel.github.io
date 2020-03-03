@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Photography on Dany Nativel</title>
+    <link>https://danynativel.net/categories/photography/</link>
+    <description>Recent content in Photography on Dany Nativel</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Apr 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://danynativel.net/categories/photography/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Switching SD cards from exFAT to FAT32 format</title>
+      <link>https://danynativel.net/2013/04/01/switching-sd-cards-from-exfat-to-fat32-format/</link>
+      <pubDate>Mon, 01 Apr 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://danynativel.net/2013/04/01/switching-sd-cards-from-exfat-to-fat32-format/</guid>
+      <description>&lt;p&gt;Before receiving my Fujifilm X100S I bought a Sandisk UHS-1 64GB rated for 95MB/s. After unboxing the X100S I immediately formatted the card within the camera, took some shots and removed the card to view the pictures on my PC. I was surprised to see that my ArchLinux machine couldn&amp;rsquo;t read the card out of the box. I then discovered that the X100S formats the at least the 64GB cards with exFAT filesystem while using the regular FAT32 for smaller cards such as 16GB (haven&amp;rsquo;t tested 32GB yet). After installing two packages on my Linux machine I was able to read the card but this made me look at this so called exFAT filesystem. After reading about the exFAT limitations I decided to re-format my 64GB SD card with FAT32 for better robustness and interoperability.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
